@@ -1,0 +1,286 @@
+package queuedproto
+
+import (
+	"bytes"
+	"testing"
+
+	"github.com/google/go-cmp/cmp"
+)
+
+func TestAddItem(t *testing.T) {
+	addItem := ReqAddItem{
+		Pid:         1,
+		ReqID:       2,
+		StorageType: 100,
+		ID:          3,
+		UnixTime:    1601882024,
+		Data:        []byte(`000`),
+	}
+
+	need := []byte{
+		0x01, 0x00, 0x00, 0x00,
+		0x02, 0x00, 0x00, 0x00,
+		0x64, 0x00,
+		0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0xA8, 0xC7, 0x7A, 0x5F,
+		0x03, 0x00,
+		0x30, 0x30, 0x30,
+	}
+
+	got, err := addItem.MarshalIProto(nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !bytes.Equal(got, need) {
+		t.Errorf("ADD_ITEM not match %+v\ngot:\t[% x]\nneed:\t[% x]", addItem, got, need)
+	}
+}
+
+func TestGetActive(t *testing.T) {
+	getAct := ReqGetActive{
+		StorageType: 100,
+		Count:       5,
+	}
+
+	need := []byte{
+		0x64, 0x00, 0x05, 0x00, 0x00, 0x00,
+	}
+
+	got, err := getAct.MarshalIProto(nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !bytes.Equal(got, need) {
+		t.Errorf("GET_ACTIVE not match %+v\ngot:\t[% x]\nneed:\t[% x]", getAct, got, need)
+	}
+}
+
+func TestGetItems(t *testing.T) {
+	getItems := ReqGetItems{
+		StorageType: 100,
+		IDs:         []uint64{50, 60, 70, 80, 90},
+	}
+
+	need := []byte{
+		0x64, 0x00,
+		0x05, 0x00, 0x00, 0x00,
+		0x32, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x3C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x46, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x50, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x5A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	}
+
+	got, err := getItems.MarshalIProto(nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !bytes.Equal(got, need) {
+		t.Errorf("GET_ITEMS not match %+v\ngot:\t[% x]\nneed:\t[% x]", getItems, got, need)
+	}
+}
+
+func TestDelItems(t *testing.T) {
+	delItems := ReqDeleteItems{
+		StorageType: 100,
+		IDs:         []uint64{5, 6, 7, 8, 9},
+	}
+
+	need := []byte{
+		0x64, 0x00,
+		0x05, 0x00, 0x00, 0x00,
+		0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	}
+
+	got, err := delItems.MarshalIProto(nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !bytes.Equal(got, need) {
+		t.Errorf("DELETE_ITEMS not match %+v\ngot:\t[% x]\nneed:\t[% x]", delItems, got, need)
+	}
+}
+
+func TestQueueStat(t *testing.T) {
+	queueStat := ReqQueueStat{
+		Version:     1,
+		StorageType: 100,
+	}
+
+	need := []byte{
+		0x01, 0x64, 0x00,
+	}
+
+	got, err := queueStat.MarshalIProto(nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !bytes.Equal(got, need) {
+		t.Errorf("QUEUE_STAT not match %+v\ngot:\t[% x]\nneed:\t[% x]", queueStat, got, need)
+	}
+}
+
+func TestQueueStatResult(t *testing.T) {
+	encoded := []byte{
+		0x64, 0x00, 0x00, 0x00,
+		0xC8, 0x00, 0x00, 0x00,
+		0x2C, 0x01, 0x00, 0x00,
+	}
+
+	var got RespQueueStat
+	if _, err := got.UnmarshalIProto(encoded); err != nil {
+		t.Fatal(err)
+	}
+
+	need := RespQueueStat{
+		ItemsCount:  100,
+		ActiveCount: 200,
+		LockedCount: 300,
+	}
+
+	if diff := cmp.Diff(need, got); diff != "" {
+		t.Errorf("Queue Stat Result not match  [% x] (-want +got):\n%s", encoded, diff)
+	}
+}
+
+func TestAddData(t *testing.T) {
+	addData := ReqAddData{
+		StorageType: 100,
+		ID:          4,
+		Data:        []byte(`111`),
+	}
+
+	need := []byte{
+		0x64, 0x00,
+		0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x03, 0x00, 0x31, 0x31, 0x31,
+	}
+
+	got, err := addData.MarshalIProto(nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !bytes.Equal(got, need) {
+		t.Errorf("ADD_DATA not match %+v\ngot:\t[% x]\nneed:\t[% x]", addData, got, need)
+	}
+}
+
+func TestFullUpdate(t *testing.T) {
+	updItems := []UpdQueueItem{
+		{EventID: EventID{0, 5}, Data: []byte(`111`)},
+		{EventID: EventID{0, 6}, Data: []byte(`222`)},
+		{EventID: EventID{0, 7}, Data: []byte(`333`)},
+		{EventID: EventID{0, 8}, Data: []byte(`444`)},
+		{EventID: EventID{0, 9}, Data: nil},
+	}
+	fullUpdate := ReqFullUpdate{
+		StorageType: 100,
+		UnixTime:    SkipTimeUpdate,
+		Items:       updItems,
+	}
+
+	need := []byte{
+		0x64, 0x00,
+		0xFF, 0xFF, 0xFF, 0xFF,
+		0x05, 0x00, 0x00, 0x00,
+		0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00, 0x31, 0x31, 0x31,
+		0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00, 0x32, 0x32, 0x32,
+		0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00, 0x33, 0x33, 0x33,
+		0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00, 0x34, 0x34, 0x34,
+		0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF,
+	}
+
+	got, err := fullUpdate.MarshalIProto(nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !bytes.Equal(got, need) {
+		t.Errorf("FULL_UPDATE not match %+v\ngot:\t[% x]\nneed:\t[% x]", fullUpdate, got, need)
+	}
+
+	var gotUpdate ReqFullUpdate
+
+	tail, err := gotUpdate.UnmarshalIProto(got)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(tail) != 0 {
+		t.Fatalf("ReqFullUpdate.UnmarshalIProto returned non-empty tail of len %d", len(tail))
+	}
+
+	if diff := cmp.Diff(gotUpdate, fullUpdate); diff != "" {
+		t.Fatal("ReqFullUpdate.UnmarshalIProto: decoded data mismatch (-want +got):\n" + diff)
+	}
+}
+
+func TestUpdateItems(t *testing.T) {
+	updateItems := ReqUpdateItems{
+		StorageType:   100,
+		UnixTime:      111111,
+		TimestampType: TimestampAbsolute,
+		IDs:           []uint64{10, 11, 12, 13, 14},
+	}
+
+	need := []byte{
+		0x64, 0x00,
+		0x07, 0xB2, 0x01, 0x00,
+
+		0x05, 0x00, 0x00, 0x00,
+		0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x0B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x0C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x0D, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x0E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00,
+	}
+
+	got, err := updateItems.MarshalIProto(nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !bytes.Equal(got, need) {
+		t.Errorf("UPDATE_ITEMS not match %+v\ngot:\t[% x]\nneed:\t[% x]", updateItems, got, need)
+	}
+}
+
+func TestGetActiveResult(t *testing.T) {
+	encoded := []byte{
+		0x05, 0x00, 0x00, 0x00,
+		0xda, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x30, 0x30, 0x30, 0x31, 0x31, 0x31,
+		0xe1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00, 0x30, 0x30, 0x30,
+		0xe2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00, 0x30, 0x30, 0x30,
+		0xe3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00, 0x30, 0x30, 0x30,
+		0xe4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00, 0x30, 0x30, 0x30,
+	}
+
+	var got ItemList
+
+	if _, err := got.UnmarshalIProto(encoded); err != nil {
+		t.Fatal(err)
+	}
+
+	need := []QueueItem{
+		{EventID: EventID{0, 218}, Data: []byte(`000111`)},
+		{EventID: EventID{0, 225}, Data: []byte(`000`)},
+		{EventID: EventID{0, 226}, Data: []byte(`000`)},
+		{EventID: EventID{0, 227}, Data: []byte(`000`)},
+		{EventID: EventID{0, 228}, Data: []byte(`000`)},
+	}
+
+	if diff := cmp.Diff(got.Items, need); diff != "" {
+		t.Errorf("Get Active Result not match  [% x] (-want +got):\n%s", encoded, diff)
+	}
+}
