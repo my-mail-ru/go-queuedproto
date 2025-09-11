@@ -864,26 +864,26 @@ func (ev *MyEvent) Build() error {
   - [func \(Producer\) MarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#Producer.MarshalIProto>)
   - [func \(p \*Producer\) UnmarshalAddon\(data \[\]byte\) error](<#Producer.UnmarshalAddon>)
   - [func \(Producer\) UnmarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#Producer.UnmarshalIProto>)
-- [type Retry](<#Retry>)
-  - [func \(Retry\) AddonID\(\) uint16](<#Retry.AddonID>)
-  - [func \(r Retry\) Fail\(\)](<#Retry.Fail>)
-  - [func \(r Retry\) GetRetryCount\(\) uint32](<#Retry.GetRetryCount>)
-  - [func \(r Retry\) HasFailed\(\) bool](<#Retry.HasFailed>)
-  - [func \(r Retry\) IncRetryCount\(\)](<#Retry.IncRetryCount>)
-  - [func \(r Retry\) MarshalAddon\(\) \(\[\]byte, error\)](<#Retry.MarshalAddon>)
-  - [func \(r \*Retry\) UnmarshalAddon\(data \[\]byte\) error](<#Retry.UnmarshalAddon>)
-- [type Retry2](<#Retry2>)
-  - [func \(Retry2\) AddonID\(\) uint16](<#Retry2.AddonID>)
-  - [func \(r Retry2\) Fail1\(\)](<#Retry2.Fail1>)
-  - [func \(r Retry2\) Fail2\(\)](<#Retry2.Fail2>)
-  - [func \(r Retry2\) GetRetry1Count\(\) uint32](<#Retry2.GetRetry1Count>)
-  - [func \(r Retry2\) GetRetry2Count\(\) uint32](<#Retry2.GetRetry2Count>)
-  - [func \(r Retry2\) HasFailed1\(\) bool](<#Retry2.HasFailed1>)
-  - [func \(r Retry2\) HasFailed2\(\) bool](<#Retry2.HasFailed2>)
-  - [func \(r Retry2\) IncRetry1Count\(\)](<#Retry2.IncRetry1Count>)
-  - [func \(r Retry2\) IncRetry2Count\(\)](<#Retry2.IncRetry2Count>)
-  - [func \(r Retry2\) MarshalAddon\(\) \(\[\]byte, error\)](<#Retry2.MarshalAddon>)
-  - [func \(r \*Retry2\) UnmarshalAddon\(data \[\]byte\) error](<#Retry2.UnmarshalAddon>)
+- [type Retryable](<#Retryable>)
+  - [func \(Retryable\) AddonID\(\) uint16](<#Retryable.AddonID>)
+  - [func \(r Retryable\) GetRetryCount\(\) uint32](<#Retryable.GetRetryCount>)
+  - [func \(r Retryable\) IncRetryCount\(\)](<#Retryable.IncRetryCount>)
+  - [func \(r Retryable\) MarshalAddon\(\) \(\[\]byte, error\)](<#Retryable.MarshalAddon>)
+  - [func \(r Retryable\) NeedRetry\(\) bool](<#Retryable.NeedRetry>)
+  - [func \(r Retryable\) Retry\(\)](<#Retryable.Retry>)
+  - [func \(r \*Retryable\) UnmarshalAddon\(data \[\]byte\) error](<#Retryable.UnmarshalAddon>)
+- [type Retryable2](<#Retryable2>)
+  - [func \(Retryable2\) AddonID\(\) uint16](<#Retryable2.AddonID>)
+  - [func \(r Retryable2\) GetRetry1Count\(\) uint32](<#Retryable2.GetRetry1Count>)
+  - [func \(r Retryable2\) GetRetry2Count\(\) uint32](<#Retryable2.GetRetry2Count>)
+  - [func \(r Retryable2\) IncRetry1Count\(\)](<#Retryable2.IncRetry1Count>)
+  - [func \(r Retryable2\) IncRetry2Count\(\)](<#Retryable2.IncRetry2Count>)
+  - [func \(r Retryable2\) MarshalAddon\(\) \(\[\]byte, error\)](<#Retryable2.MarshalAddon>)
+  - [func \(r Retryable2\) NeedRetry1\(\) bool](<#Retryable2.NeedRetry1>)
+  - [func \(r Retryable2\) NeedRetry2\(\) bool](<#Retryable2.NeedRetry2>)
+  - [func \(r Retryable2\) Retry1\(\)](<#Retryable2.Retry1>)
+  - [func \(r Retryable2\) Retry2\(\)](<#Retryable2.Retry2>)
+  - [func \(r \*Retryable2\) UnmarshalAddon\(data \[\]byte\) error](<#Retryable2.UnmarshalAddon>)
 
 
 ## Constants
@@ -1089,186 +1089,186 @@ func (Producer) UnmarshalIProto(buf []byte) ([]byte, error)
 
 UnmarshalIProto \- no op \(не пытаемся читать данные из стандартного payload\).
 
-<a name="Retry"></a>
-## type Retry
+<a name="Retryable"></a>
+## type Retryable
 
-Retry \- счётчик повторных попыток обработки события.
+Retryable \- счётчик повторных попыток обработки события.
 
 ```go
-type Retry struct {
+type Retryable struct {
     // contains filtered or unexported fields
 }
 ```
 
-<a name="Retry.AddonID"></a>
-### func \(Retry\) AddonID
+<a name="Retryable.AddonID"></a>
+### func \(Retryable\) AddonID
 
 ```go
-func (Retry) AddonID() uint16
+func (Retryable) AddonID() uint16
 ```
 
 AddonID \- возвращает RetryID \(2\)
 
-<a name="Retry.Fail"></a>
-### func \(Retry\) Fail
+<a name="Retryable.GetRetryCount"></a>
+### func \(Retryable\) GetRetryCount
 
 ```go
-func (r Retry) Fail()
+func (r Retryable) GetRetryCount() uint32
 ```
 
-Fail помечает событие ошибочным. Вызывать из обработчиков очередей в случае возникновения ошибки с ограниченным кол\-вом повторов. Для объектов, не полученных при помощи [Retry.UnmarshalAddon](<#Retry.UnmarshalAddon>), не делает ничего.
+GetRetryCount возвращает счётчик повторных попыток обработки. Для объектов, не полученных при помощи [Retryable.UnmarshalAddon](<#Retryable.UnmarshalAddon>), возвращает 0.
 
-<a name="Retry.GetRetryCount"></a>
-### func \(Retry\) GetRetryCount
+<a name="Retryable.IncRetryCount"></a>
+### func \(Retryable\) IncRetryCount
 
 ```go
-func (r Retry) GetRetryCount() uint32
+func (r Retryable) IncRetryCount()
 ```
 
-GetRetryCount возвращает счётчик ошибок. Для объектов, не полученных при помощи [Retry.UnmarshalAddon](<#Retry.UnmarshalAddon>), возвращает 0.
+IncRetryCount увеличивает счётчик повторных обработок. Для использования из tp. Не следует вызывать этот метод из кода обработчиков. Для объектов, не полученных при помощи [Retryable.UnmarshalAddon](<#Retryable.UnmarshalAddon>), не делает ничего.
 
-<a name="Retry.HasFailed"></a>
-### func \(Retry\) HasFailed
-
-```go
-func (r Retry) HasFailed() bool
-```
-
-HasFailed возвращает признак ошибки. Для объектов, не полученных при помощи [Retry.UnmarshalAddon](<#Retry.UnmarshalAddon>), возвращает false.
-
-<a name="Retry.IncRetryCount"></a>
-### func \(Retry\) IncRetryCount
+<a name="Retryable.MarshalAddon"></a>
+### func \(Retryable\) MarshalAddon
 
 ```go
-func (r Retry) IncRetryCount()
-```
-
-IncRetryCount увеличивает счётчик ошибок. Для использования из tp. Не следует вызывать этот метод из кода обработчиков. Для объектов, не полученных при помощи [Retry.UnmarshalAddon](<#Retry.UnmarshalAddon>), не делает ничего.
-
-<a name="Retry.MarshalAddon"></a>
-### func \(Retry\) MarshalAddon
-
-```go
-func (r Retry) MarshalAddon() ([]byte, error)
+func (r Retryable) MarshalAddon() ([]byte, error)
 ```
 
 MarshalAddon кодирует данные аддона.
 
-<a name="Retry.UnmarshalAddon"></a>
-### func \(\*Retry\) UnmarshalAddon
+<a name="Retryable.NeedRetry"></a>
+### func \(Retryable\) NeedRetry
 
 ```go
-func (r *Retry) UnmarshalAddon(data []byte) error
+func (r Retryable) NeedRetry() bool
+```
+
+NeedRetry возвращает признак необходимости повторной обработки. Для объектов, не полученных при помощи [Retryable.UnmarshalAddon](<#Retryable.UnmarshalAddon>), возвращает false.
+
+<a name="Retryable.Retry"></a>
+### func \(Retryable\) Retry
+
+```go
+func (r Retryable) Retry()
+```
+
+Retry помечает событие подлежащим повторной обработке. Вызывать из обработчиков очередей в случае возникновения ошибки с ограниченным кол\-вом повторов. Для объектов, не полученных при помощи [Retryable.UnmarshalAddon](<#Retryable.UnmarshalAddon>), не делает ничего.
+
+<a name="Retryable.UnmarshalAddon"></a>
+### func \(\*Retryable\) UnmarshalAddon
+
+```go
+func (r *Retryable) UnmarshalAddon(data []byte) error
 ```
 
 UnmarshalAddon декодирует данные аддона.
 
-<a name="Retry2"></a>
-## type Retry2
+<a name="Retryable2"></a>
+## type Retryable2
 
-Retry2 \- два независимых счётчика повторных попыток.
+Retryable2 \- два независимых счётчика повторных попыток обработки события.
 
 ```go
-type Retry2 struct {
+type Retryable2 struct {
     // contains filtered or unexported fields
 }
 ```
 
-<a name="Retry2.AddonID"></a>
-### func \(Retry2\) AddonID
+<a name="Retryable2.AddonID"></a>
+### func \(Retryable2\) AddonID
 
 ```go
-func (Retry2) AddonID() uint16
+func (Retryable2) AddonID() uint16
 ```
 
 AddonID \- возвращает Retry2ID \(3\)
 
-<a name="Retry2.Fail1"></a>
-### func \(Retry2\) Fail1
+<a name="Retryable2.GetRetry1Count"></a>
+### func \(Retryable2\) GetRetry1Count
 
 ```go
-func (r Retry2) Fail1()
+func (r Retryable2) GetRetry1Count() uint32
 ```
 
-Fail1 помечает событие ошибочным с учётом первого счётчика. Вызывать из обработчиков очередей в случае возникновения ошибки с ограниченным кол\-вом повторов. Для объектов, не полученных при помощи [Retry2.UnmarshalAddon](<#Retry2.UnmarshalAddon>), не делает ничего.
+GetRetry1Count возвращает первый счётчик повторных попыток обработки. Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon](<#Retryable2.UnmarshalAddon>), возвращает 0.
 
-<a name="Retry2.Fail2"></a>
-### func \(Retry2\) Fail2
+<a name="Retryable2.GetRetry2Count"></a>
+### func \(Retryable2\) GetRetry2Count
 
 ```go
-func (r Retry2) Fail2()
+func (r Retryable2) GetRetry2Count() uint32
 ```
 
-Fail2 помечает событие ошибочным с учётом первого счётчика. Вызывать из обработчиков очередей в случае возникновения ошибки с ограниченным кол\-вом повторов. Для объектов, не полученных при помощи [Retry2.UnmarshalAddon](<#Retry2.UnmarshalAddon>), не делает ничего.
+GetRetry2Count возвращает второй счётчик повторных попыток обработки. Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon](<#Retryable2.UnmarshalAddon>), возвращает 0.
 
-<a name="Retry2.GetRetry1Count"></a>
-### func \(Retry2\) GetRetry1Count
+<a name="Retryable2.IncRetry1Count"></a>
+### func \(Retryable2\) IncRetry1Count
 
 ```go
-func (r Retry2) GetRetry1Count() uint32
+func (r Retryable2) IncRetry1Count()
 ```
 
-GetRetry1Count возвращает первый счётчик ошибок. Для объектов, не полученных при помощи [Retry2.UnmarshalAddon](<#Retry2.UnmarshalAddon>), возвращает 0.
+IncRetry1Count увеличивает первый счётчик повторных попыток обработки. Для использования из tp. Не следует вызывать этот метод из кода обработчиков. Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon](<#Retryable2.UnmarshalAddon>), не делает ничего.
 
-<a name="Retry2.GetRetry2Count"></a>
-### func \(Retry2\) GetRetry2Count
+<a name="Retryable2.IncRetry2Count"></a>
+### func \(Retryable2\) IncRetry2Count
 
 ```go
-func (r Retry2) GetRetry2Count() uint32
+func (r Retryable2) IncRetry2Count()
 ```
 
-GetRetry2Count возвращает второй счётчик ошибок. Для объектов, не полученных при помощи [Retry2.UnmarshalAddon](<#Retry2.UnmarshalAddon>), возвращает 0.
+IncRetry2Count увеличивает второй счётчик повторных попыток обработки. Для использования из tp. Не следует вызывать этот метод из кода обработчиков. Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon](<#Retryable2.UnmarshalAddon>), не делает ничего.
 
-<a name="Retry2.HasFailed1"></a>
-### func \(Retry2\) HasFailed1
-
-```go
-func (r Retry2) HasFailed1() bool
-```
-
-HasFailed1 возвращает первый признак ошибки. Для объектов, не полученных при помощи [Retry2.UnmarshalAddon](<#Retry2.UnmarshalAddon>), возвращает false.
-
-<a name="Retry2.HasFailed2"></a>
-### func \(Retry2\) HasFailed2
+<a name="Retryable2.MarshalAddon"></a>
+### func \(Retryable2\) MarshalAddon
 
 ```go
-func (r Retry2) HasFailed2() bool
-```
-
-HasFailed2 возвращает первый признак ошибки. Для объектов, не полученных при помощи [Retry2.UnmarshalAddon](<#Retry2.UnmarshalAddon>), возвращает false.
-
-<a name="Retry2.IncRetry1Count"></a>
-### func \(Retry2\) IncRetry1Count
-
-```go
-func (r Retry2) IncRetry1Count()
-```
-
-IncRetry1Count увеличивает первый счётчик ошибок. Для использования из tp. Не следует вызывать этот метод из кода обработчиков. Для объектов, не полученных при помощи [Retry2.UnmarshalAddon](<#Retry2.UnmarshalAddon>), не делает ничего.
-
-<a name="Retry2.IncRetry2Count"></a>
-### func \(Retry2\) IncRetry2Count
-
-```go
-func (r Retry2) IncRetry2Count()
-```
-
-IncRetry2Count увеличивает первый счётчик ошибок. Для использования из tp. Не следует вызывать этот метод из кода обработчиков. Для объектов, не полученных при помощи [Retry2.UnmarshalAddon](<#Retry2.UnmarshalAddon>), не делает ничего.
-
-<a name="Retry2.MarshalAddon"></a>
-### func \(Retry2\) MarshalAddon
-
-```go
-func (r Retry2) MarshalAddon() ([]byte, error)
+func (r Retryable2) MarshalAddon() ([]byte, error)
 ```
 
 MarshalAddon кодирует данные аддона.
 
-<a name="Retry2.UnmarshalAddon"></a>
-### func \(\*Retry2\) UnmarshalAddon
+<a name="Retryable2.NeedRetry1"></a>
+### func \(Retryable2\) NeedRetry1
 
 ```go
-func (r *Retry2) UnmarshalAddon(data []byte) error
+func (r Retryable2) NeedRetry1() bool
+```
+
+NeedRetry1 возвращает первый признак необходимости повторной обработки. Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon](<#Retryable2.UnmarshalAddon>), возвращает false.
+
+<a name="Retryable2.NeedRetry2"></a>
+### func \(Retryable2\) NeedRetry2
+
+```go
+func (r Retryable2) NeedRetry2() bool
+```
+
+NeedRetry2 возвращает второй признак необходимости повторной обработки. Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon](<#Retryable2.UnmarshalAddon>), возвращает false.
+
+<a name="Retryable2.Retry1"></a>
+### func \(Retryable2\) Retry1
+
+```go
+func (r Retryable2) Retry1()
+```
+
+Retry1 помечает событие подлежащим повторной обработке с учётом первого счётчика. Вызывать из обработчиков очередей в случае возникновения ошибки с ограниченным кол\-вом повторов. Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon](<#Retryable2.UnmarshalAddon>), не делает ничего.
+
+<a name="Retryable2.Retry2"></a>
+### func \(Retryable2\) Retry2
+
+```go
+func (r Retryable2) Retry2()
+```
+
+Retry2 помечает событие подлежащим повторной обработке с учётом второго счётчика. Вызывать из обработчиков очередей в случае возникновения ошибки с ограниченным кол\-вом повторов. Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon](<#Retryable2.UnmarshalAddon>), не делает ничего.
+
+<a name="Retryable2.UnmarshalAddon"></a>
+### func \(\*Retryable2\) UnmarshalAddon
+
+```go
+func (r *Retryable2) UnmarshalAddon(data []byte) error
 ```
 
 UnmarshalAddon декодирует данные аддона.

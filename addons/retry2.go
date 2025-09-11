@@ -5,103 +5,103 @@ import (
 	"fmt"
 )
 
-// Retry2 - два независимых счётчика повторных попыток.
-type Retry2 struct {
+// Retryable2 - два независимых счётчика повторных попыток обработки события.
+type Retryable2 struct {
 	data *retry2Data `iproto:"-"`
 }
 
 type retry2Data struct {
 	retry1Count uint32
 	retry2Count uint32
-	hasFailed1  bool
-	hasFailed2  bool
+	needRetry1  bool
+	needRetry2  bool
 }
 
-var _ PerlAddon = &Retry2{}
+var _ PerlAddon = &Retryable2{}
 
 // AddonID - возвращает Retry2ID (3)
-func (Retry2) AddonID() uint16 {
+func (Retryable2) AddonID() uint16 {
 	return Retry2ID
 }
 
-// IncRetry1Count увеличивает первый счётчик ошибок.
+// IncRetry1Count увеличивает первый счётчик повторных попыток обработки.
 // Для использования из tp. Не следует вызывать этот метод из кода обработчиков.
-// Для объектов, не полученных при помощи [Retry2.UnmarshalAddon], не делает ничего.
-func (r Retry2) IncRetry1Count() {
+// Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon], не делает ничего.
+func (r Retryable2) IncRetry1Count() {
 	if r.data != nil {
 		r.data.retry1Count++
 	}
 }
 
-// IncRetry2Count увеличивает первый счётчик ошибок.
+// IncRetry2Count увеличивает второй счётчик повторных попыток обработки.
 // Для использования из tp. Не следует вызывать этот метод из кода обработчиков.
-// Для объектов, не полученных при помощи [Retry2.UnmarshalAddon], не делает ничего.
-func (r Retry2) IncRetry2Count() {
+// Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon], не делает ничего.
+func (r Retryable2) IncRetry2Count() {
 	if r.data != nil {
 		r.data.retry2Count++
 	}
 }
 
-// Fail1 помечает событие ошибочным с учётом первого счётчика.
+// Retry1 помечает событие подлежащим повторной обработке с учётом первого счётчика.
 // Вызывать из обработчиков очередей в случае возникновения ошибки с ограниченным кол-вом повторов.
-// Для объектов, не полученных при помощи [Retry2.UnmarshalAddon], не делает ничего.
-func (r Retry2) Fail1() {
+// Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon], не делает ничего.
+func (r Retryable2) Retry1() {
 	if r.data != nil {
-		r.data.hasFailed1 = true
+		r.data.needRetry1 = true
 	}
 }
 
-// Fail2 помечает событие ошибочным с учётом первого счётчика.
+// Retry2 помечает событие подлежащим повторной обработке с учётом второго счётчика.
 // Вызывать из обработчиков очередей в случае возникновения ошибки с ограниченным кол-вом повторов.
-// Для объектов, не полученных при помощи [Retry2.UnmarshalAddon], не делает ничего.
-func (r Retry2) Fail2() {
+// Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon], не делает ничего.
+func (r Retryable2) Retry2() {
 	if r.data != nil {
-		r.data.hasFailed2 = true
+		r.data.needRetry2 = true
 	}
 }
 
-// GetRetry1Count возвращает первый счётчик ошибок.
-// Для объектов, не полученных при помощи [Retry2.UnmarshalAddon], возвращает 0.
-func (r Retry2) GetRetry1Count() uint32 {
-	if r.data != nil {
-		return r.data.retry1Count
+// GetRetry1Count возвращает первый счётчик повторных попыток обработки.
+// Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon], возвращает 0.
+func (r Retryable2) GetRetry1Count() uint32 {
+	if r.data == nil {
+		return 0
 	}
 
-	return 0
+	return r.data.retry1Count
 }
 
-// GetRetry2Count возвращает второй счётчик ошибок.
-// Для объектов, не полученных при помощи [Retry2.UnmarshalAddon], возвращает 0.
-func (r Retry2) GetRetry2Count() uint32 {
-	if r.data != nil {
-		return r.data.retry2Count
+// GetRetry2Count возвращает второй счётчик повторных попыток обработки.
+// Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon], возвращает 0.
+func (r Retryable2) GetRetry2Count() uint32 {
+	if r.data == nil {
+		return 0
 	}
 
-	return 0
+	return r.data.retry2Count
 }
 
-// HasFailed1 возвращает первый признак ошибки.
-// Для объектов, не полученных при помощи [Retry2.UnmarshalAddon], возвращает false.
-func (r Retry2) HasFailed1() bool {
-	if r.data != nil {
-		return r.data.hasFailed1
+// NeedRetry1 возвращает первый признак необходимости повторной обработки.
+// Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon], возвращает false.
+func (r Retryable2) NeedRetry1() bool {
+	if r.data == nil {
+		return false
 	}
 
-	return false
+	return r.data.needRetry1
 }
 
-// HasFailed2 возвращает первый признак ошибки.
-// Для объектов, не полученных при помощи [Retry2.UnmarshalAddon], возвращает false.
-func (r Retry2) HasFailed2() bool {
-	if r.data != nil {
-		return r.data.hasFailed2
+// NeedRetry2 возвращает второй признак необходимости повторной обработки.
+// Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon], возвращает false.
+func (r Retryable2) NeedRetry2() bool {
+	if r.data == nil {
+		return false
 	}
 
-	return false
+	return r.data.needRetry2
 }
 
 // MarshalAddon кодирует данные аддона.
-func (r Retry2) MarshalAddon() ([]byte, error) {
+func (r Retryable2) MarshalAddon() ([]byte, error) {
 	data := make([]byte, 8)
 
 	binary.LittleEndian.PutUint32(data, r.GetRetry1Count())
@@ -111,9 +111,9 @@ func (r Retry2) MarshalAddon() ([]byte, error) {
 }
 
 // UnmarshalAddon декодирует данные аддона.
-func (r *Retry2) UnmarshalAddon(data []byte) error {
+func (r *Retryable2) UnmarshalAddon(data []byte) error {
 	if len(data) != 8 {
-		return fmt.Errorf("addons.Retry2: got len=%d, expected 8", len(data))
+		return fmt.Errorf("addons.Retryable2: got len=%d, expected 8", len(data))
 	}
 
 	r.data = new(retry2Data)
