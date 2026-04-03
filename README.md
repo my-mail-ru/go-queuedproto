@@ -173,7 +173,7 @@ var (
 ```
 
 <a name="ErrorByRetCode"></a>
-## func ErrorByRetCode
+## func [ErrorByRetCode](<https://github.com/my-mail-ru/go-queuedproto/blob/master/error.go#L69>)
 
 ```go
 func ErrorByRetCode(rc uint8) error
@@ -182,7 +182,7 @@ func ErrorByRetCode(rc uint8) error
 ErrorByRetCode \- возвращает ошибку по коду, для неизвестных ошибок в тексте сообщается код. Для RcOK и всех ворнингов возвращается nil, если ворнинги нужны \- их нужно обрабатывать вручную.
 
 <a name="IsSoftError"></a>
-## func IsSoftError
+## func [IsSoftError](<https://github.com/my-mail-ru/go-queuedproto/blob/master/error.go#L40>)
 
 ```go
 func IsSoftError(err error) bool
@@ -197,7 +197,7 @@ IsSoftError сообщает, является ли ошибка логичес�
 Можно передавать также обёрнутые ошибки.
 
 <a name="EventID"></a>
-## type EventID
+## type [EventID](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L26-L29>)
 
 EventID \- составной ID с номером шарда. Нужен, т.к. протокол \(и сам queued\) не поддерживает шардинг. Связка Shard:ID уникальна, тогда как сам по себе ID в списке событий может быть неуникальным, если события пришли из разных шардов. Такое возможно только при автогенерации ID событий на стороне queued.
 
@@ -211,7 +211,7 @@ type EventID struct {
 ```
 
 <a name="EventID.MarshalIProto"></a>
-### func \(EventID\) MarshalIProto
+### func \(EventID\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto_generated.go#L12>)
 
 ```go
 func (recvEventID EventID) MarshalIProto(buf []byte) ([]byte, error)
@@ -220,7 +220,7 @@ func (recvEventID EventID) MarshalIProto(buf []byte) ([]byte, error)
 
 
 <a name="EventID.MarshalText"></a>
-### func \(EventID\) MarshalText
+### func \(EventID\) [MarshalText](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L56>)
 
 ```go
 func (eid EventID) MarshalText() ([]byte, error)
@@ -229,7 +229,7 @@ func (eid EventID) MarshalText() ([]byte, error)
 MarshalText \- для упрощения логгирования списков событий при помощи zerolog.Event.Interface \(не нужно переваливать слайс айдишников событий в слайс строк/стрингеров\).
 
 <a name="EventID.String"></a>
-### func \(EventID\) String
+### func \(EventID\) [String](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L50>)
 
 ```go
 func (eid EventID) String() string
@@ -238,7 +238,7 @@ func (eid EventID) String() string
 String возвращает EventID в перловом текстовом формате
 
 <a name="EventID.UnmarshalIProto"></a>
-### func \(\*EventID\) UnmarshalIProto
+### func \(\*EventID\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto_generated.go#L16>)
 
 ```go
 func (recv_EventID *EventID) UnmarshalIProto(buf []byte) ([]byte, error)
@@ -247,7 +247,7 @@ func (recv_EventID *EventID) UnmarshalIProto(buf []byte) ([]byte, error)
 
 
 <a name="ItemList"></a>
-## type ItemList
+## type [ItemList](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L39-L41>)
 
 ItemList \- список событий
 
@@ -258,7 +258,7 @@ type ItemList struct {
 ```
 
 <a name="ItemList.MarshalIProto"></a>
-### func \(ItemList\) MarshalIProto
+### func \(ItemList\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto_generated.go#L24>)
 
 ```go
 func (recvItemList ItemList) MarshalIProto(buf []byte) ([]byte, error)
@@ -267,7 +267,7 @@ func (recvItemList ItemList) MarshalIProto(buf []byte) ([]byte, error)
 
 
 <a name="ItemList.UnmarshalIProto"></a>
-### func \(\*ItemList\) UnmarshalIProto
+### func \(\*ItemList\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto_generated.go#L36>)
 
 ```go
 func (recv_ItemList *ItemList) UnmarshalIProto(buf []byte) ([]byte, error)
@@ -276,7 +276,7 @@ func (recv_ItemList *ItemList) UnmarshalIProto(buf []byte) ([]byte, error)
 
 
 <a name="PerlAddonData"></a>
-## type PerlAddonData
+## type [PerlAddonData](<https://github.com/my-mail-ru/go-queuedproto/blob/master/perl_format.go#L28-L31>)
 
 PerlAddonData \- данные аддона. Константы ID и структуры формата данных оперделены в пакете addons
 
@@ -288,7 +288,7 @@ type PerlAddonData struct {
 ```
 
 <a name="PerlAddons"></a>
-## type PerlAddons
+## type [PerlAddons](<https://github.com/my-mail-ru/go-queuedproto/blob/master/perl_format.go#L36-L38>)
 
 PerlAddons \- список аддонов
 
@@ -299,7 +299,7 @@ type PerlAddons struct {
 ```
 
 <a name="PerlAddons.MarshalIProto"></a>
-### func \(PerlAddons\) MarshalIProto
+### func \(PerlAddons\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/perl_format_generated.go#L12>)
 
 ```go
 func (recvPerlAddons PerlAddons) MarshalIProto(buf []byte) ([]byte, error)
@@ -308,7 +308,7 @@ func (recvPerlAddons PerlAddons) MarshalIProto(buf []byte) ([]byte, error)
 
 
 <a name="PerlAddons.UnmarshalIProto"></a>
-### func \(\*PerlAddons\) UnmarshalIProto
+### func \(\*PerlAddons\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/perl_format_generated.go#L27>)
 
 ```go
 func (recv_PerlAddons *PerlAddons) UnmarshalIProto(buf []byte) ([]byte, error)
@@ -317,7 +317,7 @@ func (recv_PerlAddons *PerlAddons) UnmarshalIProto(buf []byte) ([]byte, error)
 
 
 <a name="PerlData"></a>
-## type PerlData
+## type [PerlData](<https://github.com/my-mail-ru/go-queuedproto/blob/master/perl_format.go#L20-L25>)
 
 PerlData \- событие очереди в перловом формате.
 
@@ -337,7 +337,7 @@ type PerlData struct {
 ```
 
 <a name="PerlData.MarshalIProto"></a>
-### func \(PerlData\) MarshalIProto
+### func \(PerlData\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/perl_format.go#L54>)
 
 ```go
 func (pd PerlData) MarshalIProto(buf []byte) ([]byte, error)
@@ -346,7 +346,7 @@ func (pd PerlData) MarshalIProto(buf []byte) ([]byte, error)
 MarshalIProto кодирует данные в перловом формате, передавая необязательные поля, только если они заданы. В этом случае устанавливаются соответствующие им флаги \(FlagEnableAddons \- для Addons, FlagEnableExtensions \- для Extensions\).
 
 <a name="PerlData.UnmarshalIProto"></a>
-### func \(\*PerlData\) UnmarshalIProto
+### func \(\*PerlData\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/perl_format.go#L86>)
 
 ```go
 func (pd *PerlData) UnmarshalIProto(buf []byte) ([]byte, error)
@@ -357,7 +357,7 @@ UnmarshalIProto декодирует данные в перловом форма
 Если флаг для необязательного поля не установлен, оно сбрасывается в дефлотное значение, так сделано, чтобы не прилетели данные от предыдущей записи в случае переиспользования объекта.
 
 <a name="PerlExtensions"></a>
-## type PerlExtensions
+## type [PerlExtensions](<https://github.com/my-mail-ru/go-queuedproto/blob/master/perl_format.go#L43-L46>)
 
 PerlExtensions \- данные расширений \(пока не обрабатываются, де/кодируются как слайс байтов\)
 
@@ -369,7 +369,7 @@ type PerlExtensions struct {
 ```
 
 <a name="PerlExtensions.MarshalIProto"></a>
-### func \(PerlExtensions\) MarshalIProto
+### func \(PerlExtensions\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/perl_format_generated.go#L56>)
 
 ```go
 func (recvPerlExtensions PerlExtensions) MarshalIProto(buf []byte) ([]byte, error)
@@ -378,7 +378,7 @@ func (recvPerlExtensions PerlExtensions) MarshalIProto(buf []byte) ([]byte, erro
 
 
 <a name="PerlExtensions.UnmarshalIProto"></a>
-### func \(\*PerlExtensions\) UnmarshalIProto
+### func \(\*PerlExtensions\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/perl_format_generated.go#L62>)
 
 ```go
 func (recv_PerlExtensions *PerlExtensions) UnmarshalIProto(buf []byte) ([]byte, error)
@@ -387,7 +387,7 @@ func (recv_PerlExtensions *PerlExtensions) UnmarshalIProto(buf []byte) ([]byte, 
 
 
 <a name="QueueItem"></a>
-## type QueueItem
+## type [QueueItem](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L32-L35>)
 
 QueueItem \- событие в очереди
 
@@ -399,7 +399,7 @@ type QueueItem struct {
 ```
 
 <a name="ReqAddData"></a>
-## type ReqAddData
+## type [ReqAddData](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_add_data.go#L6-L10>)
 
 ReqAddData \- формат tuple запроса на добавление данных в конец события
 
@@ -412,7 +412,7 @@ type ReqAddData struct {
 ```
 
 <a name="ReqAddData.Cmd"></a>
-### func \(ReqAddData\) Cmd
+### func \(ReqAddData\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_add_data.go#L15>)
 
 ```go
 func (ReqAddData) Cmd() uint32
@@ -421,7 +421,7 @@ func (ReqAddData) Cmd() uint32
 Cmd \- команда queued: CmdAddData \(34\)
 
 <a name="ReqAddData.MarshalIProto"></a>
-### func \(ReqAddData\) MarshalIProto
+### func \(ReqAddData\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_add_data_generated.go#L12>)
 
 ```go
 func (recvReqAddData ReqAddData) MarshalIProto(buf []byte) ([]byte, error)
@@ -430,7 +430,7 @@ func (recvReqAddData ReqAddData) MarshalIProto(buf []byte) ([]byte, error)
 
 
 <a name="ReqAddData.UnmarshalIProto"></a>
-### func \(\*ReqAddData\) UnmarshalIProto
+### func \(\*ReqAddData\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_add_data_generated.go#L22>)
 
 ```go
 func (recv_ReqAddData *ReqAddData) UnmarshalIProto(buf []byte) ([]byte, error)
@@ -439,7 +439,7 @@ func (recv_ReqAddData *ReqAddData) UnmarshalIProto(buf []byte) ([]byte, error)
 
 
 <a name="ReqAddItem"></a>
-## type ReqAddItem
+## type [ReqAddItem](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_add_item.go#L9-L17>)
 
 ReqAddItem \- формат tuple запроса на создание новой записи в очереди.
 
@@ -456,7 +456,7 @@ type ReqAddItem struct {
 ```
 
 <a name="ReqAddItem.Cmd"></a>
-### func \(ReqAddItem\) Cmd
+### func \(ReqAddItem\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_add_item.go#L28>)
 
 ```go
 func (ReqAddItem) Cmd() uint32
@@ -465,7 +465,7 @@ func (ReqAddItem) Cmd() uint32
 Cmd \- команда queued: CmdAddItem \(20\)
 
 <a name="ReqAddItem.MarshalIProto"></a>
-### func \(ReqAddItem\) MarshalIProto
+### func \(ReqAddItem\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_add_item.go#L35>)
 
 ```go
 func (req ReqAddItem) MarshalIProto(buf []byte) ([]byte, error)
@@ -476,7 +476,7 @@ MarshalIProto кодирует запрос на создание новой з�
 Кастомный маршалер необходим из\-за опциональности поля Flags.
 
 <a name="ReqAddItem.UnmarshalIProto"></a>
-### func \(\*ReqAddItem\) UnmarshalIProto
+### func \(\*ReqAddItem\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_add_item.go#L52>)
 
 ```go
 func (req *ReqAddItem) UnmarshalIProto(buf []byte) ([]byte, error)
@@ -487,7 +487,7 @@ UnmarshalIProto декодирует запрос на создание ново
 Метод объявлен чисто для симметрии маршалеров, для проектов клиентов/обработчиков очередей он не нужен. Пригодится для тестов, прокси iproto/queued\-\>grpc, ну и для гошной версии queued :\)
 
 <a name="ReqDeleteItems"></a>
-## type ReqDeleteItems
+## type [ReqDeleteItems](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_delete_items.go#L6-L9>)
 
 ReqDeleteItems \- формат tuple запроса на удаление событий по списку ID
 
@@ -499,7 +499,7 @@ type ReqDeleteItems struct {
 ```
 
 <a name="ReqDeleteItems.Cmd"></a>
-### func \(ReqDeleteItems\) Cmd
+### func \(ReqDeleteItems\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_delete_items.go#L14>)
 
 ```go
 func (ReqDeleteItems) Cmd() uint32
@@ -508,7 +508,7 @@ func (ReqDeleteItems) Cmd() uint32
 Cmd \- команда queued: CmdDeleteItems \(22\)
 
 <a name="ReqDeleteItems.MarshalIProto"></a>
-### func \(ReqDeleteItems\) MarshalIProto
+### func \(ReqDeleteItems\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_delete_items_generated.go#L12>)
 
 ```go
 func (recvReqDeleteItems ReqDeleteItems) MarshalIProto(buf []byte) ([]byte, error)
@@ -517,7 +517,7 @@ func (recvReqDeleteItems ReqDeleteItems) MarshalIProto(buf []byte) ([]byte, erro
 
 
 <a name="ReqDeleteItems.UnmarshalIProto"></a>
-### func \(\*ReqDeleteItems\) UnmarshalIProto
+### func \(\*ReqDeleteItems\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_delete_items_generated.go#L20>)
 
 ```go
 func (recv_ReqDeleteItems *ReqDeleteItems) UnmarshalIProto(buf []byte) ([]byte, error)
@@ -526,7 +526,7 @@ func (recv_ReqDeleteItems *ReqDeleteItems) UnmarshalIProto(buf []byte) ([]byte, 
 
 
 <a name="ReqFullUpdate"></a>
-## type ReqFullUpdate
+## type [ReqFullUpdate](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_full_update.go#L18-L22>)
 
 ReqFullUpdate \- формат tuple запроса на обновление нескольких событий в очереди
 
@@ -539,7 +539,7 @@ type ReqFullUpdate struct {
 ```
 
 <a name="ReqFullUpdate.Cmd"></a>
-### func \(ReqFullUpdate\) Cmd
+### func \(ReqFullUpdate\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_full_update.go#L35>)
 
 ```go
 func (ReqFullUpdate) Cmd() uint32
@@ -548,7 +548,7 @@ func (ReqFullUpdate) Cmd() uint32
 Cmd \- команда queued: CmdFullUpdate \(30\)
 
 <a name="ReqFullUpdate.MarshalIProto"></a>
-### func \(ReqFullUpdate\) MarshalIProto
+### func \(ReqFullUpdate\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_full_update_generated.go#L12>)
 
 ```go
 func (recvReqFullUpdate ReqFullUpdate) MarshalIProto(buf []byte) ([]byte, error)
@@ -557,7 +557,7 @@ func (recvReqFullUpdate ReqFullUpdate) MarshalIProto(buf []byte) ([]byte, error)
 
 
 <a name="ReqFullUpdate.UnmarshalIProto"></a>
-### func \(\*ReqFullUpdate\) UnmarshalIProto
+### func \(\*ReqFullUpdate\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_full_update_generated.go#L25>)
 
 ```go
 func (recv_ReqFullUpdate *ReqFullUpdate) UnmarshalIProto(buf []byte) ([]byte, error)
@@ -566,7 +566,7 @@ func (recv_ReqFullUpdate *ReqFullUpdate) UnmarshalIProto(buf []byte) ([]byte, er
 
 
 <a name="ReqGetActive"></a>
-## type ReqGetActive
+## type [ReqGetActive](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_get_active.go#L6-L9>)
 
 ReqGetActive \- формат tuple запроса на получение Count активных событий из очереди
 
@@ -578,7 +578,7 @@ type ReqGetActive struct {
 ```
 
 <a name="ReqGetActive.Cmd"></a>
-### func \(ReqGetActive\) Cmd
+### func \(ReqGetActive\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_get_active.go#L14>)
 
 ```go
 func (ReqGetActive) Cmd() uint32
@@ -587,7 +587,7 @@ func (ReqGetActive) Cmd() uint32
 Cmd \- команда queued: CmdGetActive \(21\)
 
 <a name="ReqGetActive.MarshalIProto"></a>
-### func \(ReqGetActive\) MarshalIProto
+### func \(ReqGetActive\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_get_active_generated.go#L12>)
 
 ```go
 func (recvReqGetActive ReqGetActive) MarshalIProto(buf []byte) ([]byte, error)
@@ -596,7 +596,7 @@ func (recvReqGetActive ReqGetActive) MarshalIProto(buf []byte) ([]byte, error)
 
 
 <a name="ReqGetActive.UnmarshalIProto"></a>
-### func \(\*ReqGetActive\) UnmarshalIProto
+### func \(\*ReqGetActive\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_get_active_generated.go#L17>)
 
 ```go
 func (recv_ReqGetActive *ReqGetActive) UnmarshalIProto(buf []byte) ([]byte, error)
@@ -605,7 +605,7 @@ func (recv_ReqGetActive *ReqGetActive) UnmarshalIProto(buf []byte) ([]byte, erro
 
 
 <a name="ReqGetItems"></a>
-## type ReqGetItems
+## type [ReqGetItems](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_get_items.go#L6-L9>)
 
 ReqGetItems \- формат tuple запроса на получение событий по ID
 
@@ -617,7 +617,7 @@ type ReqGetItems struct {
 ```
 
 <a name="ReqGetItems.Cmd"></a>
-### func \(ReqGetItems\) Cmd
+### func \(ReqGetItems\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_get_items.go#L14>)
 
 ```go
 func (ReqGetItems) Cmd() uint32
@@ -626,7 +626,7 @@ func (ReqGetItems) Cmd() uint32
 Cmd \- команда queued: CmdGetItems \(28\)
 
 <a name="ReqGetItems.MarshalIProto"></a>
-### func \(ReqGetItems\) MarshalIProto
+### func \(ReqGetItems\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_get_items_generated.go#L12>)
 
 ```go
 func (recvReqGetItems ReqGetItems) MarshalIProto(buf []byte) ([]byte, error)
@@ -635,7 +635,7 @@ func (recvReqGetItems ReqGetItems) MarshalIProto(buf []byte) ([]byte, error)
 
 
 <a name="ReqGetItems.UnmarshalIProto"></a>
-### func \(\*ReqGetItems\) UnmarshalIProto
+### func \(\*ReqGetItems\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_get_items_generated.go#L20>)
 
 ```go
 func (recv_ReqGetItems *ReqGetItems) UnmarshalIProto(buf []byte) ([]byte, error)
@@ -644,7 +644,7 @@ func (recv_ReqGetItems *ReqGetItems) UnmarshalIProto(buf []byte) ([]byte, error)
 
 
 <a name="ReqQueueStat"></a>
-## type ReqQueueStat
+## type [ReqQueueStat](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_queue_stat.go#L10-L13>)
 
 ReqQueueStat \- получение статистики
 
@@ -656,7 +656,7 @@ type ReqQueueStat struct {
 ```
 
 <a name="ReqQueueStat.Cmd"></a>
-### func \(ReqQueueStat\) Cmd
+### func \(ReqQueueStat\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_queue_stat.go#L30>)
 
 ```go
 func (ReqQueueStat) Cmd() uint32
@@ -665,7 +665,7 @@ func (ReqQueueStat) Cmd() uint32
 Cmd \- команда queued: CmdGetQueueStat \(36\)
 
 <a name="ReqQueueStat.MarshalIProto"></a>
-### func \(ReqQueueStat\) MarshalIProto
+### func \(ReqQueueStat\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_queue_stat_generated.go#L12>)
 
 ```go
 func (recvReqQueueStat ReqQueueStat) MarshalIProto(buf []byte) ([]byte, error)
@@ -674,7 +674,7 @@ func (recvReqQueueStat ReqQueueStat) MarshalIProto(buf []byte) ([]byte, error)
 
 
 <a name="ReqQueueStat.UnmarshalIProto"></a>
-### func \(\*ReqQueueStat\) UnmarshalIProto
+### func \(\*ReqQueueStat\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_queue_stat_generated.go#L17>)
 
 ```go
 func (recv_ReqQueueStat *ReqQueueStat) UnmarshalIProto(buf []byte) ([]byte, error)
@@ -683,7 +683,7 @@ func (recv_ReqQueueStat *ReqQueueStat) UnmarshalIProto(buf []byte) ([]byte, erro
 
 
 <a name="ReqUpdateItems"></a>
-## type ReqUpdateItems
+## type [ReqUpdateItems](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_update_items.go#L6-L11>)
 
 ReqUpdateItems \- формат tuple запроса на обновление времени срабатывания события
 
@@ -697,7 +697,7 @@ type ReqUpdateItems struct {
 ```
 
 <a name="ReqUpdateItems.Cmd"></a>
-### func \(ReqUpdateItems\) Cmd
+### func \(ReqUpdateItems\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_update_items.go#L16>)
 
 ```go
 func (ReqUpdateItems) Cmd() uint32
@@ -706,7 +706,7 @@ func (ReqUpdateItems) Cmd() uint32
 Cmd \- команда queued: CmdUpdateItems\(24\)
 
 <a name="ReqUpdateItems.MarshalIProto"></a>
-### func \(ReqUpdateItems\) MarshalIProto
+### func \(ReqUpdateItems\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_update_items_generated.go#L12>)
 
 ```go
 func (recvReqUpdateItems ReqUpdateItems) MarshalIProto(buf []byte) ([]byte, error)
@@ -715,7 +715,7 @@ func (recvReqUpdateItems ReqUpdateItems) MarshalIProto(buf []byte) ([]byte, erro
 
 
 <a name="ReqUpdateItems.UnmarshalIProto"></a>
-### func \(\*ReqUpdateItems\) UnmarshalIProto
+### func \(\*ReqUpdateItems\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_update_items_generated.go#L22>)
 
 ```go
 func (recv_ReqUpdateItems *ReqUpdateItems) UnmarshalIProto(buf []byte) ([]byte, error)
@@ -724,7 +724,7 @@ func (recv_ReqUpdateItems *ReqUpdateItems) UnmarshalIProto(buf []byte) ([]byte, 
 
 
 <a name="Request"></a>
-## type Request
+## type [Request](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L14-L17>)
 
 Request \- структуры команд протокола должны поддерживать этот интерфейс \(возвращать код команды методом Cmd\)
 
@@ -736,7 +736,7 @@ type Request interface {
 ```
 
 <a name="RespQueueStat"></a>
-## type RespQueueStat
+## type [RespQueueStat](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_queue_stat.go#L18-L22>)
 
 RespQueueStat \- ответ на команду запроса статистики
 
@@ -749,7 +749,7 @@ type RespQueueStat struct {
 ```
 
 <a name="RespQueueStat.MarshalIProto"></a>
-### func \(RespQueueStat\) MarshalIProto
+### func \(RespQueueStat\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_queue_stat_generated.go#L30>)
 
 ```go
 func (recvRespQueueStat RespQueueStat) MarshalIProto(buf []byte) ([]byte, error)
@@ -758,7 +758,7 @@ func (recvRespQueueStat RespQueueStat) MarshalIProto(buf []byte) ([]byte, error)
 
 
 <a name="RespQueueStat.String"></a>
-### func \(RespQueueStat\) String
+### func \(RespQueueStat\) [String](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_queue_stat.go#L35>)
 
 ```go
 func (i RespQueueStat) String() string
@@ -767,7 +767,7 @@ func (i RespQueueStat) String() string
 String возвращает статистику в формате строки
 
 <a name="RespQueueStat.UnmarshalIProto"></a>
-### func \(\*RespQueueStat\) UnmarshalIProto
+### func \(\*RespQueueStat\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_queue_stat_generated.go#L36>)
 
 ```go
 func (recv_RespQueueStat *RespQueueStat) UnmarshalIProto(buf []byte) ([]byte, error)
@@ -776,7 +776,7 @@ func (recv_RespQueueStat *RespQueueStat) UnmarshalIProto(buf []byte) ([]byte, er
 
 
 <a name="UpdQueueItem"></a>
-## type UpdQueueItem
+## type [UpdQueueItem](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_full_update.go#L29-L32>)
 
 UpdQueueItem \- аналог структуры [QueueItem](<#QueueItem>) для запроса [ReqFullUpdate](<#ReqFullUpdate>). Если Data == nil, данные не обновляются \- только время активации. Чтобы передать пустой массив данных, надо указать \[\]byte\{\}.
 
@@ -788,7 +788,7 @@ type UpdQueueItem struct {
 ```
 
 <a name="UpdQueueItem.MarshalIProto"></a>
-### func \(UpdQueueItem\) MarshalIProto
+### func \(UpdQueueItem\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_full_update.go#L41>)
 
 ```go
 func (uqi UpdQueueItem) MarshalIProto(buf []byte) ([]byte, error)
@@ -797,7 +797,7 @@ func (uqi UpdQueueItem) MarshalIProto(buf []byte) ([]byte, error)
 MarshalIProto кодирует структуру UpdQueueItem. Если Data == nil, передаётся длина 0xFFFF.
 
 <a name="UpdQueueItem.UnmarshalIProto"></a>
-### func \(\*UpdQueueItem\) UnmarshalIProto
+### func \(\*UpdQueueItem\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_full_update.go#L58>)
 
 ```go
 func (uqi *UpdQueueItem) UnmarshalIProto(buf []byte) ([]byte, error)
@@ -848,6 +848,14 @@ func (ev *MyEvent) Build() error {
 
 - [Constants](<#constants>)
 - [type Builder](<#Builder>)
+- [type CreatedAt](<#CreatedAt>)
+  - [func \(CreatedAt\) AddonID\(\) uint16](<#CreatedAt.AddonID>)
+  - [func \(ca \*CreatedAt\) Build\(\) error](<#CreatedAt.Build>)
+  - [func \(ca CreatedAt\) GetCreatedAt\(\) CreatedAt](<#CreatedAt.GetCreatedAt>)
+  - [func \(ca CreatedAt\) MarshalAddon\(\) \(\[\]byte, error\)](<#CreatedAt.MarshalAddon>)
+  - [func \(CreatedAt\) MarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#CreatedAt.MarshalIProto>)
+  - [func \(ca \*CreatedAt\) UnmarshalAddon\(data \[\]byte\) error](<#CreatedAt.UnmarshalAddon>)
+  - [func \(CreatedAt\) UnmarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#CreatedAt.UnmarshalIProto>)
 - [type CreationTime](<#CreationTime>)
   - [func \(CreationTime\) AddonID\(\) uint16](<#CreationTime.AddonID>)
   - [func \(ct \*CreationTime\) Build\(\) error](<#CreationTime.Build>)
@@ -896,6 +904,7 @@ const (
     RetryID        = uint16(2) // сохраняет в событии счётчик ретраев, при объявлении очереди указывается лимит ретраев, и задержка
     Retry2ID       = uint16(3) // два независимых счётчика ретраев
     ProducerID     = uint16(4) // в перле: UNKNOWN, UWSGI, TP, SCRIPT. пока при создании событий в go пишем сюда TP-GO, хотя это и некорректно (продьюсят не только обработчики очередей)
+    CreatedAtID    = uint16(5) // время создания события в наносекундах (int64)
     MaxAddonID
 )
 ```
@@ -909,7 +918,7 @@ const DefaultProducer = "TP-GO"
 ```
 
 <a name="Builder"></a>
-## type Builder
+## type [Builder](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/perl_addons.go#L22-L24>)
 
 Builder \- для автозаполнения структур, используется в tp \(копия интерфейса tp.Builder\)
 
@@ -919,8 +928,82 @@ type Builder interface {
 }
 ```
 
+<a name="CreatedAt"></a>
+## type [CreatedAt](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/created_at.go#L12>)
+
+CreatedAt \- время создания события \(заполняется автоматически текущим временем\)
+
+```go
+type CreatedAt int64
+```
+
+<a name="CreatedAt.AddonID"></a>
+### func \(CreatedAt\) [AddonID](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/created_at.go#L26>)
+
+```go
+func (CreatedAt) AddonID() uint16
+```
+
+AddonID \- возвращает CreatedAtID \(5\)
+
+<a name="CreatedAt.Build"></a>
+### func \(\*CreatedAt\) [Build](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/created_at.go#L65>)
+
+```go
+func (ca *CreatedAt) Build() error
+```
+
+Build записывает в \*ca текущее время в наносекундах, если там дефолтное значение \(0\).
+
+<a name="CreatedAt.GetCreatedAt"></a>
+### func \(CreatedAt\) [GetCreatedAt](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/created_at.go#L15>)
+
+```go
+func (ca CreatedAt) GetCreatedAt() CreatedAt
+```
+
+GetCreatedAt возвращает значение [CreatedAt](<#CreatedAt>), для которого он вызван. Использовать для получения времени создания из произвольной структуры события со встроенным [CreatedAt](<#CreatedAt>).
+
+<a name="CreatedAt.MarshalAddon"></a>
+### func \(CreatedAt\) [MarshalAddon](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/created_at.go#L43>)
+
+```go
+func (ca CreatedAt) MarshalAddon() ([]byte, error)
+```
+
+MarshalAddon кодирует данные аддона
+
+<a name="CreatedAt.MarshalIProto"></a>
+### func \(CreatedAt\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/created_at.go#L33>)
+
+```go
+func (CreatedAt) MarshalIProto(buf []byte) ([]byte, error)
+```
+
+MarshalIProto \- no op \(чтобы данные аддона не попали в стандартный payload\).
+
+TODO выкинуть эти методы, когда библиотека iproto сможет парсить директивы встроенных в структуру типов.
+
+<a name="CreatedAt.UnmarshalAddon"></a>
+### func \(\*CreatedAt\) [UnmarshalAddon](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/created_at.go#L52>)
+
+```go
+func (ca *CreatedAt) UnmarshalAddon(data []byte) error
+```
+
+UnmarshalAddon декодирует данные аддона
+
+<a name="CreatedAt.UnmarshalIProto"></a>
+### func \(CreatedAt\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/created_at.go#L38>)
+
+```go
+func (CreatedAt) UnmarshalIProto(buf []byte) ([]byte, error)
+```
+
+UnmarshalIProto \- no op \(не пытаемся читать данные из стандартного payload\).
+
 <a name="CreationTime"></a>
-## type CreationTime
+## type [CreationTime](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/creation_time.go#L12>)
 
 CreationTime \- время создания события \(заполняется автоматически текущим временем\)
 
@@ -929,7 +1012,7 @@ type CreationTime uint32
 ```
 
 <a name="CreationTime.AddonID"></a>
-### func \(CreationTime\) AddonID
+### func \(CreationTime\) [AddonID](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/creation_time.go#L26>)
 
 ```go
 func (CreationTime) AddonID() uint16
@@ -938,7 +1021,7 @@ func (CreationTime) AddonID() uint16
 AddonID \- возвращает CreationTimeID \(1\)
 
 <a name="CreationTime.Build"></a>
-### func \(\*CreationTime\) Build
+### func \(\*CreationTime\) [Build](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/creation_time.go#L65>)
 
 ```go
 func (ct *CreationTime) Build() error
@@ -947,7 +1030,7 @@ func (ct *CreationTime) Build() error
 Build записывает в \*ct текущее время, если там дефолтное значение \(0\).
 
 <a name="CreationTime.GetCreationTime"></a>
-### func \(CreationTime\) GetCreationTime
+### func \(CreationTime\) [GetCreationTime](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/creation_time.go#L15>)
 
 ```go
 func (ct CreationTime) GetCreationTime() CreationTime
@@ -956,7 +1039,7 @@ func (ct CreationTime) GetCreationTime() CreationTime
 GetCreationTime возвращает значение [CreationTime](<#CreationTime>), для которого он вызван. Использовать для получения времени создания из произвольной структуры события со встроенным [CreationTime](<#CreationTime>).
 
 <a name="CreationTime.MarshalAddon"></a>
-### func \(CreationTime\) MarshalAddon
+### func \(CreationTime\) [MarshalAddon](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/creation_time.go#L43>)
 
 ```go
 func (ct CreationTime) MarshalAddon() ([]byte, error)
@@ -965,7 +1048,7 @@ func (ct CreationTime) MarshalAddon() ([]byte, error)
 MarshalAddon кодирует данные аддона
 
 <a name="CreationTime.MarshalIProto"></a>
-### func \(CreationTime\) MarshalIProto
+### func \(CreationTime\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/creation_time.go#L33>)
 
 ```go
 func (CreationTime) MarshalIProto(buf []byte) ([]byte, error)
@@ -973,10 +1056,10 @@ func (CreationTime) MarshalIProto(buf []byte) ([]byte, error)
 
 MarshalIProto \- no op \(чтобы данные аддона не попали в стандартный payload\).
 
-TODO выкинуть эти методы, когда библиотека iproto сможет парзить директивы встроенных в структуру типов.
+TODO выкинуть эти методы, когда библиотека iproto сможет парсить директивы встроенных в структуру типов.
 
 <a name="CreationTime.UnmarshalAddon"></a>
-### func \(\*CreationTime\) UnmarshalAddon
+### func \(\*CreationTime\) [UnmarshalAddon](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/creation_time.go#L52>)
 
 ```go
 func (ct *CreationTime) UnmarshalAddon(data []byte) error
@@ -985,7 +1068,7 @@ func (ct *CreationTime) UnmarshalAddon(data []byte) error
 UnmarshalAddon декодирует данные аддона
 
 <a name="CreationTime.UnmarshalIProto"></a>
-### func \(CreationTime\) UnmarshalIProto
+### func \(CreationTime\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/creation_time.go#L38>)
 
 ```go
 func (CreationTime) UnmarshalIProto(buf []byte) ([]byte, error)
@@ -994,7 +1077,7 @@ func (CreationTime) UnmarshalIProto(buf []byte) ([]byte, error)
 UnmarshalIProto \- no op \(не пытаемся читать данные из стандартного payload\).
 
 <a name="PerlAddon"></a>
-## type PerlAddon
+## type [PerlAddon](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/perl_addons.go#L15-L19>)
 
 PerlAddon \- интерфейс всех перловых аддонов с поддержкой специфических для аддонов де/кодирующих функций
 
@@ -1007,7 +1090,7 @@ type PerlAddon interface {
 ```
 
 <a name="Producer"></a>
-## type Producer
+## type [Producer](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/producer.go#L27>)
 
 Producer \- имя источника события \(для статы/метрик, заполняется автоматически значением "TP\-GO"\).
 
@@ -1034,7 +1117,7 @@ type Producer string
 ```
 
 <a name="Producer.AddonID"></a>
-### func \(Producer\) AddonID
+### func \(Producer\) [AddonID](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/producer.go#L41>)
 
 ```go
 func (Producer) AddonID() uint16
@@ -1043,7 +1126,7 @@ func (Producer) AddonID() uint16
 AddonID \- возвращает ProducerID \(4\)
 
 <a name="Producer.Build"></a>
-### func \(\*Producer\) Build
+### func \(\*Producer\) [Build](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/producer.go#L76>)
 
 ```go
 func (p *Producer) Build() error
@@ -1052,7 +1135,7 @@ func (p *Producer) Build() error
 Build записывает в \*p значение DefaultProducer, если в \*p дефолтное значение \(пустая строка\).
 
 <a name="Producer.MarshalAddon"></a>
-### func \(Producer\) MarshalAddon
+### func \(Producer\) [MarshalAddon](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/producer.go#L58>)
 
 ```go
 func (p Producer) MarshalAddon() ([]byte, error)
@@ -1061,7 +1144,7 @@ func (p Producer) MarshalAddon() ([]byte, error)
 MarshalAddon кодирует данные аддона
 
 <a name="Producer.MarshalIProto"></a>
-### func \(Producer\) MarshalIProto
+### func \(Producer\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/producer.go#L48>)
 
 ```go
 func (Producer) MarshalIProto(buf []byte) ([]byte, error)
@@ -1069,10 +1152,10 @@ func (Producer) MarshalIProto(buf []byte) ([]byte, error)
 
 MarshalIProto \- no op \(чтобы данные аддона не попали в стандартный payload\).
 
-TODO выкинуть эти методы, когда библиотека iproto сможет парзить директивы встроенных в структуру типов.
+TODO выкинуть эти методы, когда библиотека iproto сможет парсить директивы встроенных в структуру типов.
 
 <a name="Producer.UnmarshalAddon"></a>
-### func \(\*Producer\) UnmarshalAddon
+### func \(\*Producer\) [UnmarshalAddon](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/producer.go#L63>)
 
 ```go
 func (p *Producer) UnmarshalAddon(data []byte) error
@@ -1081,7 +1164,7 @@ func (p *Producer) UnmarshalAddon(data []byte) error
 UnmarshalAddon декодирует данные аддона
 
 <a name="Producer.UnmarshalIProto"></a>
-### func \(Producer\) UnmarshalIProto
+### func \(Producer\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/producer.go#L53>)
 
 ```go
 func (Producer) UnmarshalIProto(buf []byte) ([]byte, error)
@@ -1090,7 +1173,7 @@ func (Producer) UnmarshalIProto(buf []byte) ([]byte, error)
 UnmarshalIProto \- no op \(не пытаемся читать данные из стандартного payload\).
 
 <a name="Retryable"></a>
-## type Retryable
+## type [Retryable](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry.go#L9-L11>)
 
 Retryable \- счётчик повторных попыток обработки события.
 
@@ -1101,7 +1184,7 @@ type Retryable struct {
 ```
 
 <a name="Retryable.AddonID"></a>
-### func \(Retryable\) AddonID
+### func \(Retryable\) [AddonID](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry.go#L21>)
 
 ```go
 func (Retryable) AddonID() uint16
@@ -1110,7 +1193,7 @@ func (Retryable) AddonID() uint16
 AddonID \- возвращает RetryID \(2\)
 
 <a name="Retryable.GetRetryCount"></a>
-### func \(Retryable\) GetRetryCount
+### func \(Retryable\) [GetRetryCount](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry.go#L45>)
 
 ```go
 func (r Retryable) GetRetryCount() uint32
@@ -1119,7 +1202,7 @@ func (r Retryable) GetRetryCount() uint32
 GetRetryCount возвращает счётчик повторных попыток обработки. Для объектов, не полученных при помощи [Retryable.UnmarshalAddon](<#Retryable.UnmarshalAddon>), возвращает 0.
 
 <a name="Retryable.IncRetryCount"></a>
-### func \(Retryable\) IncRetryCount
+### func \(Retryable\) [IncRetryCount](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry.go#L28>)
 
 ```go
 func (r Retryable) IncRetryCount()
@@ -1128,7 +1211,7 @@ func (r Retryable) IncRetryCount()
 IncRetryCount увеличивает счётчик повторных обработок. Для использования из tp. Не следует вызывать этот метод из кода обработчиков. Для объектов, не полученных при помощи [Retryable.UnmarshalAddon](<#Retryable.UnmarshalAddon>), не делает ничего.
 
 <a name="Retryable.MarshalAddon"></a>
-### func \(Retryable\) MarshalAddon
+### func \(Retryable\) [MarshalAddon](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry.go#L64>)
 
 ```go
 func (r Retryable) MarshalAddon() ([]byte, error)
@@ -1137,7 +1220,7 @@ func (r Retryable) MarshalAddon() ([]byte, error)
 MarshalAddon кодирует данные аддона.
 
 <a name="Retryable.NeedRetry"></a>
-### func \(Retryable\) NeedRetry
+### func \(Retryable\) [NeedRetry](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry.go#L55>)
 
 ```go
 func (r Retryable) NeedRetry() bool
@@ -1146,7 +1229,7 @@ func (r Retryable) NeedRetry() bool
 NeedRetry возвращает признак необходимости повторной обработки. Для объектов, не полученных при помощи [Retryable.UnmarshalAddon](<#Retryable.UnmarshalAddon>), возвращает false.
 
 <a name="Retryable.Retry"></a>
-### func \(Retryable\) Retry
+### func \(Retryable\) [Retry](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry.go#L37>)
 
 ```go
 func (r Retryable) Retry()
@@ -1155,7 +1238,7 @@ func (r Retryable) Retry()
 Retry помечает событие подлежащим повторной обработке. Вызывать из обработчиков очередей в случае возникновения ошибки с ограниченным кол\-вом повторов. Для объектов, не полученных при помощи [Retryable.UnmarshalAddon](<#Retryable.UnmarshalAddon>), не делает ничего.
 
 <a name="Retryable.UnmarshalAddon"></a>
-### func \(\*Retryable\) UnmarshalAddon
+### func \(\*Retryable\) [UnmarshalAddon](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry.go#L73>)
 
 ```go
 func (r *Retryable) UnmarshalAddon(data []byte) error
@@ -1164,7 +1247,7 @@ func (r *Retryable) UnmarshalAddon(data []byte) error
 UnmarshalAddon декодирует данные аддона.
 
 <a name="Retryable2"></a>
-## type Retryable2
+## type [Retryable2](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry2.go#L9-L11>)
 
 Retryable2 \- два независимых счётчика повторных попыток обработки события.
 
@@ -1175,7 +1258,7 @@ type Retryable2 struct {
 ```
 
 <a name="Retryable2.AddonID"></a>
-### func \(Retryable2\) AddonID
+### func \(Retryable2\) [AddonID](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry2.go#L23>)
 
 ```go
 func (Retryable2) AddonID() uint16
@@ -1184,7 +1267,7 @@ func (Retryable2) AddonID() uint16
 AddonID \- возвращает Retry2ID \(3\)
 
 <a name="Retryable2.GetRetry1Count"></a>
-### func \(Retryable2\) GetRetry1Count
+### func \(Retryable2\) [GetRetry1Count](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry2.go#L65>)
 
 ```go
 func (r Retryable2) GetRetry1Count() uint32
@@ -1193,7 +1276,7 @@ func (r Retryable2) GetRetry1Count() uint32
 GetRetry1Count возвращает первый счётчик повторных попыток обработки. Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon](<#Retryable2.UnmarshalAddon>), возвращает 0.
 
 <a name="Retryable2.GetRetry2Count"></a>
-### func \(Retryable2\) GetRetry2Count
+### func \(Retryable2\) [GetRetry2Count](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry2.go#L75>)
 
 ```go
 func (r Retryable2) GetRetry2Count() uint32
@@ -1202,7 +1285,7 @@ func (r Retryable2) GetRetry2Count() uint32
 GetRetry2Count возвращает второй счётчик повторных попыток обработки. Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon](<#Retryable2.UnmarshalAddon>), возвращает 0.
 
 <a name="Retryable2.IncRetry1Count"></a>
-### func \(Retryable2\) IncRetry1Count
+### func \(Retryable2\) [IncRetry1Count](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry2.go#L30>)
 
 ```go
 func (r Retryable2) IncRetry1Count()
@@ -1211,7 +1294,7 @@ func (r Retryable2) IncRetry1Count()
 IncRetry1Count увеличивает первый счётчик повторных попыток обработки. Для использования из tp. Не следует вызывать этот метод из кода обработчиков. Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon](<#Retryable2.UnmarshalAddon>), не делает ничего.
 
 <a name="Retryable2.IncRetry2Count"></a>
-### func \(Retryable2\) IncRetry2Count
+### func \(Retryable2\) [IncRetry2Count](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry2.go#L39>)
 
 ```go
 func (r Retryable2) IncRetry2Count()
@@ -1220,7 +1303,7 @@ func (r Retryable2) IncRetry2Count()
 IncRetry2Count увеличивает второй счётчик повторных попыток обработки. Для использования из tp. Не следует вызывать этот метод из кода обработчиков. Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon](<#Retryable2.UnmarshalAddon>), не делает ничего.
 
 <a name="Retryable2.MarshalAddon"></a>
-### func \(Retryable2\) MarshalAddon
+### func \(Retryable2\) [MarshalAddon](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry2.go#L104>)
 
 ```go
 func (r Retryable2) MarshalAddon() ([]byte, error)
@@ -1229,7 +1312,7 @@ func (r Retryable2) MarshalAddon() ([]byte, error)
 MarshalAddon кодирует данные аддона.
 
 <a name="Retryable2.NeedRetry1"></a>
-### func \(Retryable2\) NeedRetry1
+### func \(Retryable2\) [NeedRetry1](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry2.go#L85>)
 
 ```go
 func (r Retryable2) NeedRetry1() bool
@@ -1238,7 +1321,7 @@ func (r Retryable2) NeedRetry1() bool
 NeedRetry1 возвращает первый признак необходимости повторной обработки. Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon](<#Retryable2.UnmarshalAddon>), возвращает false.
 
 <a name="Retryable2.NeedRetry2"></a>
-### func \(Retryable2\) NeedRetry2
+### func \(Retryable2\) [NeedRetry2](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry2.go#L95>)
 
 ```go
 func (r Retryable2) NeedRetry2() bool
@@ -1247,7 +1330,7 @@ func (r Retryable2) NeedRetry2() bool
 NeedRetry2 возвращает второй признак необходимости повторной обработки. Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon](<#Retryable2.UnmarshalAddon>), возвращает false.
 
 <a name="Retryable2.Retry1"></a>
-### func \(Retryable2\) Retry1
+### func \(Retryable2\) [Retry1](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry2.go#L48>)
 
 ```go
 func (r Retryable2) Retry1()
@@ -1256,7 +1339,7 @@ func (r Retryable2) Retry1()
 Retry1 помечает событие подлежащим повторной обработке с учётом первого счётчика. Вызывать из обработчиков очередей в случае возникновения ошибки с ограниченным кол\-вом повторов. Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon](<#Retryable2.UnmarshalAddon>), не делает ничего.
 
 <a name="Retryable2.Retry2"></a>
-### func \(Retryable2\) Retry2
+### func \(Retryable2\) [Retry2](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry2.go#L57>)
 
 ```go
 func (r Retryable2) Retry2()
@@ -1265,7 +1348,7 @@ func (r Retryable2) Retry2()
 Retry2 помечает событие подлежащим повторной обработке с учётом второго счётчика. Вызывать из обработчиков очередей в случае возникновения ошибки с ограниченным кол\-вом повторов. Для объектов, не полученных при помощи [Retryable2.UnmarshalAddon](<#Retryable2.UnmarshalAddon>), не делает ничего.
 
 <a name="Retryable2.UnmarshalAddon"></a>
-### func \(\*Retryable2\) UnmarshalAddon
+### func \(\*Retryable2\) [UnmarshalAddon](<https://github.com/my-mail-ru/go-queuedproto/blob/master/addons/retry2.go#L114>)
 
 ```go
 func (r *Retryable2) UnmarshalAddon(data []byte) error

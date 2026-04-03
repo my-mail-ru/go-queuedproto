@@ -44,7 +44,7 @@ func (Producer) AddonID() uint16 {
 
 // MarshalIProto - no op (чтобы данные аддона не попали в стандартный payload).
 //
-// TODO выкинуть эти методы, когда библиотека iproto сможет парзить директивы встроенных в структуру типов.
+// TODO выкинуть эти методы, когда библиотека iproto сможет парсить директивы встроенных в структуру типов.
 func (Producer) MarshalIProto(buf []byte) ([]byte, error) {
 	return buf, nil
 }
