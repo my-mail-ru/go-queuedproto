@@ -10,10 +10,13 @@ import (
 //go:generate go tool iprotogen -r -tests
 
 type (
+	// Cmd - команда queued.
+	Cmd uint32
+
 	// Request - структуры команд протокола должны поддерживать этот интерфейс (возвращать код команды методом Cmd)
 	Request interface {
 		iproto.Marshaler
-		Cmd() uint32
+		Cmd() Cmd
 	}
 
 	// EventID - составной ID с номером шарда. Нужен, т.к. протокол (и сам queued) не поддерживает шардинг.
@@ -38,6 +41,11 @@ type (
 	//adv:iproto:
 	ItemList struct {
 		Items []QueueItem `iproto:"u32"`
+	}
+
+	// withQueueID is for iface assertions only, not exported intentionally
+	withQueueID interface {
+		QueueID() uint16
 	}
 )
 

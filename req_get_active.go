@@ -8,9 +8,16 @@ type ReqGetActive struct {
 	Count       uint32 // количество событий в ответе
 }
 
-var _ Request = ReqGetActive{}
+var (
+	_ Request     = ReqGetActive{}
+	_ withQueueID = ReqGetActive{}
+)
 
 // Cmd - команда queued: CmdGetActive (21)
-func (ReqGetActive) Cmd() uint32 {
+func (ReqGetActive) Cmd() Cmd {
 	return CmdGetActive
+}
+
+func (req ReqGetActive) QueueID() uint16 {
+	return req.StorageType
 }

@@ -24,11 +24,16 @@ type RespQueueStat struct {
 var (
 	_ Request      = ReqQueueStat{}
 	_ fmt.Stringer = RespQueueStat{}
+	_ withQueueID  = ReqQueueStat{}
 )
 
 // Cmd - команда queued: CmdGetQueueStat (36)
-func (ReqQueueStat) Cmd() uint32 {
+func (ReqQueueStat) Cmd() Cmd {
 	return CmdGetQueueStat
+}
+
+func (req ReqQueueStat) QueueID() uint16 {
+	return req.StorageType
 }
 
 // String возвращает статистику в формате строки

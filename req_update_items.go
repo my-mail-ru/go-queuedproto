@@ -10,9 +10,16 @@ type ReqUpdateItems struct {
 	TimestampType uint8    // TimestampAbsolute, TimestampRelativePlus или TimestampRelativeMinus
 }
 
-var _ Request = ReqUpdateItems{}
+var (
+	_ Request     = ReqUpdateItems{}
+	_ withQueueID = ReqUpdateItems{}
+)
 
 // Cmd - команда queued: CmdUpdateItems(24)
-func (ReqUpdateItems) Cmd() uint32 {
+func (ReqUpdateItems) Cmd() Cmd {
 	return CmdUpdateItems
+}
+
+func (req ReqUpdateItems) QueueID() uint16 {
+	return req.StorageType
 }

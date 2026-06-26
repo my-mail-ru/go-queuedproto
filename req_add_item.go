@@ -22,11 +22,16 @@ type reqAddItemDumb ReqAddItem // отрезаем у типа все объяв
 var (
 	_ Request            = ReqAddItem{}
 	_ iproto.Unmarshaler = &ReqAddItem{}
+	_ withQueueID        = ReqAddItem{}
 )
 
 // Cmd - команда queued: CmdAddItem (20)
-func (ReqAddItem) Cmd() uint32 {
+func (ReqAddItem) Cmd() Cmd {
 	return CmdAddItem
+}
+
+func (req ReqAddItem) QueueID() uint16 {
+	return req.StorageType
 }
 
 // MarshalIProto кодирует запрос на создание новой записи в очереди.
@@ -60,6 +65,7 @@ func (req *ReqAddItem) UnmarshalIProto(buf []byte) ([]byte, error) {
 	}
 
 	var flags iprototypes.Uint32
+
 	buf, err = flags.UnmarshalIProto(buf)
 	req.Flags = uint32(flags)
 

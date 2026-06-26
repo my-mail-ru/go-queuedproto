@@ -7,7 +7,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 )
 
-func TestAddItem(t *testing.T) {
+func TestReqAddItem(t *testing.T) {
 	addItem := ReqAddItem{
 		Pid:         1,
 		ReqID:       2,

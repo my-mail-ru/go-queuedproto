@@ -21,7 +21,10 @@ type ReqFullUpdate struct {
 	Items       []UpdQueueItem `iproto:"u32"`
 }
 
-var _ Request = ReqFullUpdate{}
+var (
+	_ Request     = ReqFullUpdate{}
+	_ withQueueID = ReqFullUpdate{}
+)
 
 // UpdQueueItem - аналог структуры [QueueItem] для запроса [ReqFullUpdate].
 // Если Data == nil, данные не обновляются - только время активации.
@@ -32,8 +35,12 @@ type UpdQueueItem struct {
 }
 
 // Cmd - команда queued: CmdFullUpdate (30)
-func (ReqFullUpdate) Cmd() uint32 {
+func (ReqFullUpdate) Cmd() Cmd {
 	return CmdFullUpdate
+}
+
+func (req ReqFullUpdate) QueueID() uint16 {
+	return req.StorageType
 }
 
 // MarshalIProto кодирует структуру UpdQueueItem.

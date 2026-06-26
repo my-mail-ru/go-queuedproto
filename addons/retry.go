@@ -7,7 +7,7 @@ import (
 
 // Retryable - счётчик повторных попыток обработки события.
 type Retryable struct {
-	data *retryData `iproto:"-"`
+	data *retryData
 }
 
 type retryData struct {

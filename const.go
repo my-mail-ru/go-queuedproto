@@ -1,15 +1,17 @@
 package queuedproto
 
+//go:generate go tool stringer -type Cmd
+
 // Коды команд queued
 const (
-	CmdAddItem      = uint32(20)
-	CmdGetActive    = uint32(21)
-	CmdDeleteItems  = uint32(22)
-	CmdUpdateItems  = uint32(24)
-	CmdGetItems     = uint32(28)
-	CmdFullUpdate   = uint32(30)
-	CmdAddData      = uint32(34)
-	CmdGetQueueStat = uint32(36)
+	CmdAddItem      = Cmd(20)
+	CmdGetActive    = Cmd(21)
+	CmdDeleteItems  = Cmd(22)
+	CmdUpdateItems  = Cmd(24)
+	CmdGetItems     = Cmd(28)
+	CmdFullUpdate   = Cmd(30)
+	CmdAddData      = Cmd(34)
+	CmdGetQueueStat = Cmd(36)
 )
 
 // Коды ответов queued

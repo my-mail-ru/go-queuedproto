@@ -1,4 +1,4 @@
-package addons
+package addons //nolint:dupl
 
 import (
 	"encoding/binary"

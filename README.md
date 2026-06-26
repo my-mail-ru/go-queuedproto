@@ -18,6 +18,8 @@ Package queuedproto \- поддержка протокола queued.
 - [Variables](<#variables>)
 - [func ErrorByRetCode\(rc uint8\) error](<#ErrorByRetCode>)
 - [func IsSoftError\(err error\) bool](<#IsSoftError>)
+- [type Cmd](<#Cmd>)
+  - [func \(i Cmd\) String\(\) string](<#Cmd.String>)
 - [type EventID](<#EventID>)
   - [func \(recvEventID EventID\) MarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#EventID.MarshalIProto>)
   - [func \(eid EventID\) MarshalText\(\) \(\[\]byte, error\)](<#EventID.MarshalText>)
@@ -38,36 +40,44 @@ Package queuedproto \- поддержка протокола queued.
   - [func \(recv\_PerlExtensions \*PerlExtensions\) UnmarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#PerlExtensions.UnmarshalIProto>)
 - [type QueueItem](<#QueueItem>)
 - [type ReqAddData](<#ReqAddData>)
-  - [func \(ReqAddData\) Cmd\(\) uint32](<#ReqAddData.Cmd>)
+  - [func \(ReqAddData\) Cmd\(\) Cmd](<#ReqAddData.Cmd>)
   - [func \(recvReqAddData ReqAddData\) MarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#ReqAddData.MarshalIProto>)
+  - [func \(req ReqAddData\) QueueID\(\) uint16](<#ReqAddData.QueueID>)
   - [func \(recv\_ReqAddData \*ReqAddData\) UnmarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#ReqAddData.UnmarshalIProto>)
 - [type ReqAddItem](<#ReqAddItem>)
-  - [func \(ReqAddItem\) Cmd\(\) uint32](<#ReqAddItem.Cmd>)
+  - [func \(ReqAddItem\) Cmd\(\) Cmd](<#ReqAddItem.Cmd>)
   - [func \(req ReqAddItem\) MarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#ReqAddItem.MarshalIProto>)
+  - [func \(req ReqAddItem\) QueueID\(\) uint16](<#ReqAddItem.QueueID>)
   - [func \(req \*ReqAddItem\) UnmarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#ReqAddItem.UnmarshalIProto>)
 - [type ReqDeleteItems](<#ReqDeleteItems>)
-  - [func \(ReqDeleteItems\) Cmd\(\) uint32](<#ReqDeleteItems.Cmd>)
+  - [func \(ReqDeleteItems\) Cmd\(\) Cmd](<#ReqDeleteItems.Cmd>)
   - [func \(recvReqDeleteItems ReqDeleteItems\) MarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#ReqDeleteItems.MarshalIProto>)
+  - [func \(req ReqDeleteItems\) QueueID\(\) uint16](<#ReqDeleteItems.QueueID>)
   - [func \(recv\_ReqDeleteItems \*ReqDeleteItems\) UnmarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#ReqDeleteItems.UnmarshalIProto>)
 - [type ReqFullUpdate](<#ReqFullUpdate>)
-  - [func \(ReqFullUpdate\) Cmd\(\) uint32](<#ReqFullUpdate.Cmd>)
+  - [func \(ReqFullUpdate\) Cmd\(\) Cmd](<#ReqFullUpdate.Cmd>)
   - [func \(recvReqFullUpdate ReqFullUpdate\) MarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#ReqFullUpdate.MarshalIProto>)
+  - [func \(req ReqFullUpdate\) QueueID\(\) uint16](<#ReqFullUpdate.QueueID>)
   - [func \(recv\_ReqFullUpdate \*ReqFullUpdate\) UnmarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#ReqFullUpdate.UnmarshalIProto>)
 - [type ReqGetActive](<#ReqGetActive>)
-  - [func \(ReqGetActive\) Cmd\(\) uint32](<#ReqGetActive.Cmd>)
+  - [func \(ReqGetActive\) Cmd\(\) Cmd](<#ReqGetActive.Cmd>)
   - [func \(recvReqGetActive ReqGetActive\) MarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#ReqGetActive.MarshalIProto>)
+  - [func \(req ReqGetActive\) QueueID\(\) uint16](<#ReqGetActive.QueueID>)
   - [func \(recv\_ReqGetActive \*ReqGetActive\) UnmarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#ReqGetActive.UnmarshalIProto>)
 - [type ReqGetItems](<#ReqGetItems>)
-  - [func \(ReqGetItems\) Cmd\(\) uint32](<#ReqGetItems.Cmd>)
+  - [func \(ReqGetItems\) Cmd\(\) Cmd](<#ReqGetItems.Cmd>)
   - [func \(recvReqGetItems ReqGetItems\) MarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#ReqGetItems.MarshalIProto>)
+  - [func \(req ReqGetItems\) QueueID\(\) uint16](<#ReqGetItems.QueueID>)
   - [func \(recv\_ReqGetItems \*ReqGetItems\) UnmarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#ReqGetItems.UnmarshalIProto>)
 - [type ReqQueueStat](<#ReqQueueStat>)
-  - [func \(ReqQueueStat\) Cmd\(\) uint32](<#ReqQueueStat.Cmd>)
+  - [func \(ReqQueueStat\) Cmd\(\) Cmd](<#ReqQueueStat.Cmd>)
   - [func \(recvReqQueueStat ReqQueueStat\) MarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#ReqQueueStat.MarshalIProto>)
+  - [func \(req ReqQueueStat\) QueueID\(\) uint16](<#ReqQueueStat.QueueID>)
   - [func \(recv\_ReqQueueStat \*ReqQueueStat\) UnmarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#ReqQueueStat.UnmarshalIProto>)
 - [type ReqUpdateItems](<#ReqUpdateItems>)
-  - [func \(ReqUpdateItems\) Cmd\(\) uint32](<#ReqUpdateItems.Cmd>)
+  - [func \(ReqUpdateItems\) Cmd\(\) Cmd](<#ReqUpdateItems.Cmd>)
   - [func \(recvReqUpdateItems ReqUpdateItems\) MarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#ReqUpdateItems.MarshalIProto>)
+  - [func \(req ReqUpdateItems\) QueueID\(\) uint16](<#ReqUpdateItems.QueueID>)
   - [func \(recv\_ReqUpdateItems \*ReqUpdateItems\) UnmarshalIProto\(buf \[\]byte\) \(\[\]byte, error\)](<#ReqUpdateItems.UnmarshalIProto>)
 - [type Request](<#Request>)
 - [type RespQueueStat](<#RespQueueStat>)
@@ -85,14 +95,14 @@ Package queuedproto \- поддержка протокола queued.
 
 ```go
 const (
-    CmdAddItem      = uint32(20)
-    CmdGetActive    = uint32(21)
-    CmdDeleteItems  = uint32(22)
-    CmdUpdateItems  = uint32(24)
-    CmdGetItems     = uint32(28)
-    CmdFullUpdate   = uint32(30)
-    CmdAddData      = uint32(34)
-    CmdGetQueueStat = uint32(36)
+    CmdAddItem      = Cmd(20)
+    CmdGetActive    = Cmd(21)
+    CmdDeleteItems  = Cmd(22)
+    CmdUpdateItems  = Cmd(24)
+    CmdGetItems     = Cmd(28)
+    CmdFullUpdate   = Cmd(30)
+    CmdAddData      = Cmd(34)
+    CmdGetQueueStat = Cmd(36)
 )
 ```
 
@@ -196,8 +206,26 @@ IsSoftError сообщает, является ли ошибка логичес�
 
 Можно передавать также обёрнутые ошибки.
 
+<a name="Cmd"></a>
+## type [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L14>)
+
+Cmd \- команда queued.
+
+```go
+type Cmd uint32
+```
+
+<a name="Cmd.String"></a>
+### func \(Cmd\) [String](<https://github.com/my-mail-ru/go-queuedproto/blob/master/cmd_string.go#L34>)
+
+```go
+func (i Cmd) String() string
+```
+
+
+
 <a name="EventID"></a>
-## type [EventID](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L26-L29>)
+## type [EventID](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L29-L32>)
 
 EventID \- составной ID с номером шарда. Нужен, т.к. протокол \(и сам queued\) не поддерживает шардинг. Связка Shard:ID уникальна, тогда как сам по себе ID в списке событий может быть неуникальным, если события пришли из разных шардов. Такое возможно только при автогенерации ID событий на стороне queued.
 
@@ -220,7 +248,7 @@ func (recvEventID EventID) MarshalIProto(buf []byte) ([]byte, error)
 
 
 <a name="EventID.MarshalText"></a>
-### func \(EventID\) [MarshalText](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L56>)
+### func \(EventID\) [MarshalText](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L64>)
 
 ```go
 func (eid EventID) MarshalText() ([]byte, error)
@@ -229,7 +257,7 @@ func (eid EventID) MarshalText() ([]byte, error)
 MarshalText \- для упрощения логгирования списков событий при помощи zerolog.Event.Interface \(не нужно переваливать слайс айдишников событий в слайс строк/стрингеров\).
 
 <a name="EventID.String"></a>
-### func \(EventID\) [String](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L50>)
+### func \(EventID\) [String](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L58>)
 
 ```go
 func (eid EventID) String() string
@@ -247,7 +275,7 @@ func (recv_EventID *EventID) UnmarshalIProto(buf []byte) ([]byte, error)
 
 
 <a name="ItemList"></a>
-## type [ItemList](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L39-L41>)
+## type [ItemList](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L42-L44>)
 
 ItemList \- список событий
 
@@ -387,7 +415,7 @@ func (recv_PerlExtensions *PerlExtensions) UnmarshalIProto(buf []byte) ([]byte, 
 
 
 <a name="QueueItem"></a>
-## type [QueueItem](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L32-L35>)
+## type [QueueItem](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L35-L38>)
 
 QueueItem \- событие в очереди
 
@@ -412,10 +440,10 @@ type ReqAddData struct {
 ```
 
 <a name="ReqAddData.Cmd"></a>
-### func \(ReqAddData\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_add_data.go#L15>)
+### func \(ReqAddData\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_add_data.go#L18>)
 
 ```go
-func (ReqAddData) Cmd() uint32
+func (ReqAddData) Cmd() Cmd
 ```
 
 Cmd \- команда queued: CmdAddData \(34\)
@@ -425,6 +453,15 @@ Cmd \- команда queued: CmdAddData \(34\)
 
 ```go
 func (recvReqAddData ReqAddData) MarshalIProto(buf []byte) ([]byte, error)
+```
+
+
+
+<a name="ReqAddData.QueueID"></a>
+### func \(ReqAddData\) [QueueID](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_add_data.go#L22>)
+
+```go
+func (req ReqAddData) QueueID() uint16
 ```
 
 
@@ -456,16 +493,16 @@ type ReqAddItem struct {
 ```
 
 <a name="ReqAddItem.Cmd"></a>
-### func \(ReqAddItem\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_add_item.go#L28>)
+### func \(ReqAddItem\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_add_item.go#L29>)
 
 ```go
-func (ReqAddItem) Cmd() uint32
+func (ReqAddItem) Cmd() Cmd
 ```
 
 Cmd \- команда queued: CmdAddItem \(20\)
 
 <a name="ReqAddItem.MarshalIProto"></a>
-### func \(ReqAddItem\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_add_item.go#L35>)
+### func \(ReqAddItem\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_add_item.go#L40>)
 
 ```go
 func (req ReqAddItem) MarshalIProto(buf []byte) ([]byte, error)
@@ -475,8 +512,17 @@ MarshalIProto кодирует запрос на создание новой з�
 
 Кастомный маршалер необходим из\-за опциональности поля Flags.
 
+<a name="ReqAddItem.QueueID"></a>
+### func \(ReqAddItem\) [QueueID](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_add_item.go#L33>)
+
+```go
+func (req ReqAddItem) QueueID() uint16
+```
+
+
+
 <a name="ReqAddItem.UnmarshalIProto"></a>
-### func \(\*ReqAddItem\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_add_item.go#L52>)
+### func \(\*ReqAddItem\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_add_item.go#L57>)
 
 ```go
 func (req *ReqAddItem) UnmarshalIProto(buf []byte) ([]byte, error)
@@ -499,10 +545,10 @@ type ReqDeleteItems struct {
 ```
 
 <a name="ReqDeleteItems.Cmd"></a>
-### func \(ReqDeleteItems\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_delete_items.go#L14>)
+### func \(ReqDeleteItems\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_delete_items.go#L17>)
 
 ```go
-func (ReqDeleteItems) Cmd() uint32
+func (ReqDeleteItems) Cmd() Cmd
 ```
 
 Cmd \- команда queued: CmdDeleteItems \(22\)
@@ -512,6 +558,15 @@ Cmd \- команда queued: CmdDeleteItems \(22\)
 
 ```go
 func (recvReqDeleteItems ReqDeleteItems) MarshalIProto(buf []byte) ([]byte, error)
+```
+
+
+
+<a name="ReqDeleteItems.QueueID"></a>
+### func \(ReqDeleteItems\) [QueueID](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_delete_items.go#L21>)
+
+```go
+func (req ReqDeleteItems) QueueID() uint16
 ```
 
 
@@ -539,10 +594,10 @@ type ReqFullUpdate struct {
 ```
 
 <a name="ReqFullUpdate.Cmd"></a>
-### func \(ReqFullUpdate\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_full_update.go#L35>)
+### func \(ReqFullUpdate\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_full_update.go#L38>)
 
 ```go
-func (ReqFullUpdate) Cmd() uint32
+func (ReqFullUpdate) Cmd() Cmd
 ```
 
 Cmd \- команда queued: CmdFullUpdate \(30\)
@@ -552,6 +607,15 @@ Cmd \- команда queued: CmdFullUpdate \(30\)
 
 ```go
 func (recvReqFullUpdate ReqFullUpdate) MarshalIProto(buf []byte) ([]byte, error)
+```
+
+
+
+<a name="ReqFullUpdate.QueueID"></a>
+### func \(ReqFullUpdate\) [QueueID](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_full_update.go#L42>)
+
+```go
+func (req ReqFullUpdate) QueueID() uint16
 ```
 
 
@@ -578,10 +642,10 @@ type ReqGetActive struct {
 ```
 
 <a name="ReqGetActive.Cmd"></a>
-### func \(ReqGetActive\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_get_active.go#L14>)
+### func \(ReqGetActive\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_get_active.go#L17>)
 
 ```go
-func (ReqGetActive) Cmd() uint32
+func (ReqGetActive) Cmd() Cmd
 ```
 
 Cmd \- команда queued: CmdGetActive \(21\)
@@ -591,6 +655,15 @@ Cmd \- команда queued: CmdGetActive \(21\)
 
 ```go
 func (recvReqGetActive ReqGetActive) MarshalIProto(buf []byte) ([]byte, error)
+```
+
+
+
+<a name="ReqGetActive.QueueID"></a>
+### func \(ReqGetActive\) [QueueID](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_get_active.go#L21>)
+
+```go
+func (req ReqGetActive) QueueID() uint16
 ```
 
 
@@ -617,10 +690,10 @@ type ReqGetItems struct {
 ```
 
 <a name="ReqGetItems.Cmd"></a>
-### func \(ReqGetItems\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_get_items.go#L14>)
+### func \(ReqGetItems\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_get_items.go#L17>)
 
 ```go
-func (ReqGetItems) Cmd() uint32
+func (ReqGetItems) Cmd() Cmd
 ```
 
 Cmd \- команда queued: CmdGetItems \(28\)
@@ -630,6 +703,15 @@ Cmd \- команда queued: CmdGetItems \(28\)
 
 ```go
 func (recvReqGetItems ReqGetItems) MarshalIProto(buf []byte) ([]byte, error)
+```
+
+
+
+<a name="ReqGetItems.QueueID"></a>
+### func \(ReqGetItems\) [QueueID](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_get_items.go#L21>)
+
+```go
+func (req ReqGetItems) QueueID() uint16
 ```
 
 
@@ -656,10 +738,10 @@ type ReqQueueStat struct {
 ```
 
 <a name="ReqQueueStat.Cmd"></a>
-### func \(ReqQueueStat\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_queue_stat.go#L30>)
+### func \(ReqQueueStat\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_queue_stat.go#L31>)
 
 ```go
-func (ReqQueueStat) Cmd() uint32
+func (ReqQueueStat) Cmd() Cmd
 ```
 
 Cmd \- команда queued: CmdGetQueueStat \(36\)
@@ -669,6 +751,15 @@ Cmd \- команда queued: CmdGetQueueStat \(36\)
 
 ```go
 func (recvReqQueueStat ReqQueueStat) MarshalIProto(buf []byte) ([]byte, error)
+```
+
+
+
+<a name="ReqQueueStat.QueueID"></a>
+### func \(ReqQueueStat\) [QueueID](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_queue_stat.go#L35>)
+
+```go
+func (req ReqQueueStat) QueueID() uint16
 ```
 
 
@@ -697,10 +788,10 @@ type ReqUpdateItems struct {
 ```
 
 <a name="ReqUpdateItems.Cmd"></a>
-### func \(ReqUpdateItems\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_update_items.go#L16>)
+### func \(ReqUpdateItems\) [Cmd](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_update_items.go#L19>)
 
 ```go
-func (ReqUpdateItems) Cmd() uint32
+func (ReqUpdateItems) Cmd() Cmd
 ```
 
 Cmd \- команда queued: CmdUpdateItems\(24\)
@@ -710,6 +801,15 @@ Cmd \- команда queued: CmdUpdateItems\(24\)
 
 ```go
 func (recvReqUpdateItems ReqUpdateItems) MarshalIProto(buf []byte) ([]byte, error)
+```
+
+
+
+<a name="ReqUpdateItems.QueueID"></a>
+### func \(ReqUpdateItems\) [QueueID](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_update_items.go#L23>)
+
+```go
+func (req ReqUpdateItems) QueueID() uint16
 ```
 
 
@@ -724,14 +824,14 @@ func (recv_ReqUpdateItems *ReqUpdateItems) UnmarshalIProto(buf []byte) ([]byte, 
 
 
 <a name="Request"></a>
-## type [Request](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L14-L17>)
+## type [Request](<https://github.com/my-mail-ru/go-queuedproto/blob/master/queuedproto.go#L17-L20>)
 
 Request \- структуры команд протокола должны поддерживать этот интерфейс \(возвращать код команды методом Cmd\)
 
 ```go
 type Request interface {
     iproto.Marshaler
-    Cmd() uint32
+    Cmd() Cmd
 }
 ```
 
@@ -758,7 +858,7 @@ func (recvRespQueueStat RespQueueStat) MarshalIProto(buf []byte) ([]byte, error)
 
 
 <a name="RespQueueStat.String"></a>
-### func \(RespQueueStat\) [String](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_queue_stat.go#L35>)
+### func \(RespQueueStat\) [String](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_queue_stat.go#L40>)
 
 ```go
 func (i RespQueueStat) String() string
@@ -776,7 +876,7 @@ func (recv_RespQueueStat *RespQueueStat) UnmarshalIProto(buf []byte) ([]byte, er
 
 
 <a name="UpdQueueItem"></a>
-## type [UpdQueueItem](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_full_update.go#L29-L32>)
+## type [UpdQueueItem](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_full_update.go#L32-L35>)
 
 UpdQueueItem \- аналог структуры [QueueItem](<#QueueItem>) для запроса [ReqFullUpdate](<#ReqFullUpdate>). Если Data == nil, данные не обновляются \- только время активации. Чтобы передать пустой массив данных, надо указать \[\]byte\{\}.
 
@@ -788,7 +888,7 @@ type UpdQueueItem struct {
 ```
 
 <a name="UpdQueueItem.MarshalIProto"></a>
-### func \(UpdQueueItem\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_full_update.go#L41>)
+### func \(UpdQueueItem\) [MarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_full_update.go#L48>)
 
 ```go
 func (uqi UpdQueueItem) MarshalIProto(buf []byte) ([]byte, error)
@@ -797,7 +897,7 @@ func (uqi UpdQueueItem) MarshalIProto(buf []byte) ([]byte, error)
 MarshalIProto кодирует структуру UpdQueueItem. Если Data == nil, передаётся длина 0xFFFF.
 
 <a name="UpdQueueItem.UnmarshalIProto"></a>
-### func \(\*UpdQueueItem\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_full_update.go#L58>)
+### func \(\*UpdQueueItem\) [UnmarshalIProto](<https://github.com/my-mail-ru/go-queuedproto/blob/master/req_full_update.go#L65>)
 
 ```go
 func (uqi *UpdQueueItem) UnmarshalIProto(buf []byte) ([]byte, error)
